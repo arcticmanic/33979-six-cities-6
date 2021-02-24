@@ -1,11 +1,11 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import PlaceCard from '../place-card/place-card';
+import {Link} from 'react-router-dom';
+import {offerType} from '../../types';
+import PlaceCardList from '../place-card-list/place-card-list';
 
 const MainPage = (props) => {
-  const {placesCount} = props;
-  const places = Array.from(Array(placesCount).keys());
+  const {placesCount, offers} = props;
 
   return (
     <React.Fragment>
@@ -90,7 +90,7 @@ const MainPage = (props) => {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  {places.map((item, i) => <PlaceCard key={i} />)}
+                  <PlaceCardList placesCount={placesCount} offers={offers} />
                 </div>
               </section>
               <div className="cities__right-section">
@@ -106,6 +106,7 @@ const MainPage = (props) => {
 
 MainPage.propTypes = {
   placesCount: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(offerType),
 };
 
 export default MainPage;
