@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {cityType, offerType} from '../../types';
+import {cityType, offerType, reviewType} from '../../types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import MainPage from '../main-page/main-page';
 import MainEmptyPage from '../main-empty-page/main-empty-page';
@@ -12,7 +12,7 @@ import PropertyNotLoggedPage from '../property-not-logged-page/property-not-logg
 import NotFoundPage from '../not-found-page/not-found-page';
 
 const App = (props) => {
-  const {placesCount, offers, cities} = props;
+  const {placesCount, nearbyPlacesCount, offers, cities, reviews} = props;
 
   return (
     <BrowserRouter>
@@ -36,7 +36,7 @@ const App = (props) => {
           <FavoritesPage cities={cities} offers={offers} />
         </Route>
         <Route exact path="/offer/:id">
-          <PropertyPage onReview={() => {}} />
+          <PropertyPage nearbyPlacesCount={nearbyPlacesCount} reviews={reviews} onReview={() => {}} />
         </Route>
         <Route>
           <NotFoundPage />
@@ -48,8 +48,10 @@ const App = (props) => {
 
 App.propTypes = {
   placesCount: PropTypes.number.isRequired,
+  nearbyPlacesCount: PropTypes.number.isRequired,
   cities: PropTypes.arrayOf(cityType),
   offers: PropTypes.arrayOf(offerType),
+  reviews: PropTypes.arrayOf(reviewType),
 };
 
 export default App;

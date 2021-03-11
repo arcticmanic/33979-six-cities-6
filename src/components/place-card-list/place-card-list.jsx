@@ -5,23 +5,26 @@ import {offerType} from '../../types';
 
 const PlaceCardList = (props) => {
   const [activeOffer, setActiveOffer] = useState({id: null});
-  const {offers} = props;
+  const isNearby = false;
+  const {offers, placesCount} = props;
 
   return (
     <React.Fragment>
-      {offers.map((offer, _) => <PlaceCard key={`${offer.id}`}
-        offer={offer}
-        isActive={activeOffer.id === offer.id}
-        onOfferMouseEnter={() => {
-          setActiveOffer(offer.id);
-        }}
-      />)}
+      {offers.slice(0, placesCount).map((offer) => (
+        <PlaceCard key={offer.id}
+          isNearby={isNearby}
+          offer={offer}
+          isActive={activeOffer.id === offer.id}
+          onOfferMouseEnter={() => setActiveOffer(offer.id)}
+        />
+      ))}
     </React.Fragment>
   );
 };
 
 PlaceCardList.propTypes = {
   offers: PropTypes.arrayOf(offerType),
+  placesCount: PropTypes.number.isRequired,
 };
 
 export default PlaceCardList;

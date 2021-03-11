@@ -61,6 +61,7 @@ const PlaceCard = (props) => {
 PlaceCard.propTypes = {
   offer: offerType,
   onOfferMouseEnter: PropTypes.func.isRequired,
+  isNearby: PropTypes.bool.isRequired,
 };
 
 export default PlaceCard;
