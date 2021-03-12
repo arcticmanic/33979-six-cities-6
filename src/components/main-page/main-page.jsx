@@ -7,6 +7,7 @@ import Map from '../map/map';
 
 const MainPage = (props) => {
   const {placesCount, offers} = props;
+  const MAP_SIZE = 960;
 
   return (
     <React.Fragment>
@@ -96,7 +97,7 @@ const MainPage = (props) => {
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map offers={offers} />
+                  <Map offers={offers} height={MAP_SIZE} />
                 </section>
               </div>
             </div>

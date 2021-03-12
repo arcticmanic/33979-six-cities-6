@@ -6,7 +6,7 @@ import {offerType} from '../../types';
 import 'leaflet/dist/leaflet.css';
 
 const Map = (props) => {
-  const {offers} = props;
+  const {offers, height} = props;
   const cityFilter = `Amsterdam`;
   const city = [52.38333, 4.9];
 
@@ -55,12 +55,13 @@ const Map = (props) => {
   }, []);
 
   return (
-    <div id="map" style={{height: `960px`}} ref={mapRef}></div>
+    <div id="map" style={{height: `${height}px`, maxWidth: `1144px`, margin: `auto`}} ref={mapRef}></div>
   );
 };
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(offerType),
+  offers: PropTypes.arrayOf(offerType).isRequired,
+  height: PropTypes.number.isRequired,
 };
 
 export default Map;

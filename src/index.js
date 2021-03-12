@@ -6,12 +6,14 @@ import reviews from './mocks/reviews';
 import cities from './mocks/cities';
 
 const Setting = {
-  PLACES_COUNT: 5
+  PLACES_COUNT: 5,
+  NEARBY_PLACES_COUNT: 3
 };
 
 ReactDOM.render(
     <App
       placesCount={Setting.PLACES_COUNT}
+      nearbyPlacesCount={Setting.NEARBY_PLACES_COUNT}
       cities={cities}
       offers={offers}
       reviews={reviews}
