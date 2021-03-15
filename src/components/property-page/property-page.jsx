@@ -168,7 +168,7 @@ const PropertyPage = (props) => {
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <PlaceCardList placesCount={nearbyPlacesCount} offers={offersRelated} />
+                <PlaceCardList placesCount={nearbyPlacesCount} offers={offersRelated} city={`Amsterdam`} />
               </div>
             </section>
           </div>

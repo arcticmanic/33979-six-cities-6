@@ -7,7 +7,7 @@ const getImageMock = (seed) => {
 };
 
 const initialState = {
-  city: `Amsterdam`,
+  city: `Paris`,
   offers: [
     {
       "bedrooms": 3,
@@ -160,6 +160,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offers: action.payload
+      };
+
+    case ActionType.RESET_APP:
+      return {
+        ...initialState
       };
   }
 

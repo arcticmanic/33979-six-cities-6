@@ -62,8 +62,8 @@ export default [
     "is_favorite": false,
     "is_premium": false,
     "location": {
-      "latitude": 52.35514938496378,
-      "longitude": 4.673877537499948,
+      "latitude": 48.91956196283202,
+      "longitude": 2.3813912137840574,
       "zoom": 8
     },
     "max_adults": 4,
@@ -172,7 +172,7 @@ export default [
     "preview_image": getImageMock(1),
     "price": 120,
     "rating": 4.6,
-    "title": `Beautiful & luxurious studio at great location`,
+    "title": `Beautiful & luxurious studio at great location 2`,
     "type": `apartment`
   },
   {
@@ -206,7 +206,7 @@ export default [
     "preview_image": getImageMock(1),
     "price": 120,
     "rating": 4.8,
-    "title": `Beautiful & luxurious studio at great location`,
+    "title": `Beautiful & luxurious studio at great location 3`,
     "type": `apartment`
   },
   {
@@ -240,7 +240,7 @@ export default [
     "preview_image": getImageMock(1),
     "price": 120,
     "rating": 4.8,
-    "title": `Beautiful & luxurious studio at great location`,
+    "title": `Beautiful & luxurious studio at great location 4`,
     "type": `apartment`
   },
 ];

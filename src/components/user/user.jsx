@@ -29,7 +29,7 @@ User.propTypes = {
   avatarUrl: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   isPro: PropTypes.bool,
-  classNameList: PropTypes.arrayOf(PropTypes.string),
+  classNameList: PropTypes.objectOf(PropTypes.string)
 };
 
 export default User;

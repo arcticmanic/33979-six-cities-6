@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import User from './user';
 
 const UserReview = (props) => {
@@ -16,10 +15,6 @@ const UserReview = (props) => {
       {...props}
     />
   );
-};
-
-UserReview.propTypes = {
-  className: PropTypes.string,
 };
 
 export default UserReview;
