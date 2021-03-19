@@ -10,3 +10,24 @@ export const MAP_DEFAULT_COORDS = {
   longitude: 0.0151886,
   zoom: 6
 };
+
+export const defaultConstType = `POPULAR`;
+
+export const sortType = {
+  POPULAR: {
+    value: `POPULAR`,
+    label: `Popular`,
+  },
+  ASC_PRICE: {
+    value: `ASC_PRICE`,
+    label: `Price: low to high`,
+  },
+  DESC_PRICE: {
+    value: `DESC_PRICE`,
+    label: `Price: high to low`,
+  },
+  RATE: {
+    value: `RATE`,
+    label: `Top rated first`,
+  },
+};
