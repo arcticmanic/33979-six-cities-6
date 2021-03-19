@@ -4,28 +4,30 @@ import PropTypes from 'prop-types';
 const addIsProClassName = (className, isPro) => isPro ? `${className} ${className}--pro` : className;
 
 const User = (props) => {
-  const {avatarUrl, name, isPro, classNameList = null} = props;
+  const {width = 54, height = 54, avatarUrl, name, isPro, classNameList = null} = props;
 
-  const classNameUser = classNameList ? classNameList.classNameUser : ``;
-  const classNameAvatarWrapper = classNameList ? classNameList.classNameAvatarWrapper : ``;
-  const classNameAvatar = classNameList ? classNameList.classNameAvatar : ``;
-  const classNameUserName = classNameList ? classNameList.classNameUserName : ``;
+  const {
+    classNameUser,
+    classNameAvatarWrapper,
+    classNameAvatar,
+    classNameUserName
+  } = classNameList || {};
 
   return (
-    <React.Fragment>
-      <div className={`${classNameUser} user`}>
-        <div className={`${addIsProClassName(classNameAvatarWrapper, isPro)} user__avatar-wrapper`}>
-          <img className={`${classNameAvatar} user__avatar`} src={avatarUrl} width="54" height="54" alt="Reviews avatar" />
-        </div>
-        <span className={classNameUserName}>
-          {name}
-        </span>
+    <div className={`${classNameUser} user`}>
+      <div className={`${addIsProClassName(classNameAvatarWrapper, isPro)} user__avatar-wrapper`}>
+        <img className={`${classNameAvatar} user__avatar`} src={avatarUrl} width={width} height={height} alt="Reviews avatar" />
       </div>
-    </React.Fragment>
+      <span className={classNameUserName}>
+        {name}
+      </span>
+    </div>
   );
 };
 
 User.propTypes = {
+  width: PropTypes.number,
+  height: PropTypes.number,
   avatarUrl: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   isPro: PropTypes.bool,

@@ -4,17 +4,14 @@ import PropTypes from 'prop-types';
 const getClassName = (location, activeLocation) => {
   const baseName = `locations__item-link tabs__item`;
 
-  return location === activeLocation ?
-    `${baseName} tabs__item--active` :
-    baseName;
+  return `${baseName} ${location === activeLocation ? `tabs__item--active` : ``}`;
 };
 
-const LocationItem = (props) => {
-  const {location, activeLocation, onLocationClick} = props;
-
+const LocationItem = ({location, activeLocation, onLocationClick}) => {
   return (
     <li className="locations__item">
-      <a className={getClassName(location, activeLocation)} href="#" onClick={() => {
+      <a className={getClassName(location, activeLocation)} href="#" onClick={(evt) => {
+        evt.preventDefault();
         onLocationClick(location);
       }}>
         <span>{location}</span>

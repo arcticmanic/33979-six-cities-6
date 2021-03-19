@@ -34,8 +34,8 @@ export default [
     },
     "max_adults": 4,
     "preview_image": getImageMock(1),
-    "price": 120,
-    "rating": 4.8,
+    "price": 200,
+    "rating": 3.8,
     "title": `Beautiful & luxurious studio at great location`,
     "type": `apartment`
   },
@@ -170,8 +170,8 @@ export default [
     },
     "max_adults": 4,
     "preview_image": getImageMock(1),
-    "price": 120,
-    "rating": 4.6,
+    "price": 300,
+    "rating": 1.6,
     "title": `Beautiful & luxurious studio at great location 2`,
     "type": `apartment`
   },
@@ -204,8 +204,8 @@ export default [
     },
     "max_adults": 4,
     "preview_image": getImageMock(1),
-    "price": 120,
-    "rating": 4.8,
+    "price": 400,
+    "rating": 2.8,
     "title": `Beautiful & luxurious studio at great location 3`,
     "type": `apartment`
   },

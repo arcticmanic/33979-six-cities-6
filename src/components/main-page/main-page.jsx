@@ -1,18 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {offerType, cityType} from '../../types';
 import {connect} from 'react-redux';
+import {ActionCreator} from "../../store/action";
 import PlaceCardList from '../place-card-list/place-card-list';
 import LocationList from '../location-list/location-list';
+import Sort from '../sort/sort';
 import Map from '../map/map';
 
 const MainPage = (props) => {
-  const {placesCount, offers, cities, city} = props;
+  const {placesCount, offers, cities, city, onSortTypeSelect} = props;
+  const [activeCardId, setActiveCardId] = useState(null);
   const MAP_SIZE = 960;
 
   const offersPerCityCount = offers.filter((offer) => offer.city.name === city).length;
   const countString = offersPerCityCount === 1 ? `place` : `places`;
+
+  const onCardMouseOver = (offer) => {
+    setActiveCardId(offer.id);
+  };
 
   return (
     <React.Fragment>
@@ -50,28 +57,14 @@ const MainPage = (props) => {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{`${offersPerCityCount} ${countString} to stay in ${city}`}</b>
-                <form className="places__sorting" action="#" method="get">
-                  <span className="places__sorting-caption">Sort by</span>
-                  <span className="places__sorting-type" tabIndex="0">
-                    Popular
-                    <svg className="places__sorting-arrow" width="7" height="4">
-                      <use xlinkHref="#icon-arrow-select"></use>
-                    </svg>
-                  </span>
-                  <ul className="places__options places__options--custom places__options--opened">
-                    <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                    <li className="places__option" tabIndex="0">Price: low to high</li>
-                    <li className="places__option" tabIndex="0">Price: high to low</li>
-                    <li className="places__option" tabIndex="0">Top rated first</li>
-                  </ul>
-                </form>
+                <Sort onSortTypeChange={onSortTypeSelect} />
                 <div className="cities__places-list places__list tabs__content">
-                  <PlaceCardList placesCount={placesCount} offers={offers} city={city} />
+                  <PlaceCardList placesCount={placesCount} offers={offers} city={city} onCardMouseOver={onCardMouseOver} />
                 </div>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map offers={offers} height={MAP_SIZE} />
+                  <Map offers={offers} height={MAP_SIZE} activeCardId={activeCardId} />
                 </section>
               </div>
             </div>
@@ -87,11 +80,19 @@ MainPage.propTypes = {
   offers: PropTypes.arrayOf(offerType),
   cities: PropTypes.arrayOf(cityType),
   city: PropTypes.string.isRequired,
+  onSortTypeSelect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  offers: state.offers,
   city: state.city,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onSortTypeSelect(type) {
+    dispatch(ActionCreator.sortOffers(type));
+  },
+});
+
 export {MainPage};
-export default connect(mapStateToProps, null)(MainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

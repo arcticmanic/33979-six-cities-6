@@ -3,22 +3,18 @@ import dayjs from 'dayjs';
 import {reviewType} from '../../types';
 import UserReview from '../user/user-review';
 
-const ReviewItem = (props) => {
-  const {review} = props;
-
+const ReviewItem = ({review}) => {
   const {
     comment,
     date,
     rating,
-    user
+    user: {
+      avatar_url: avatarUrl,
+      id,
+      is_pro: isPro,
+      name,
+    }
   } = review;
-
-  const {
-    avatar_url: avatarUrl,
-    id,
-    is_pro: isPro,
-    name,
-  } = user;
 
   return (
     <React.Fragment>

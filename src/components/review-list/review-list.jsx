@@ -7,15 +7,13 @@ const ReviewList = (props) => {
   const {reviews} = props;
 
   return (
-    <React.Fragment>
-      <ul className="reviews__list">
-        {reviews.map((review) => (
-          <ReviewItem key={review.id}
-            review={review}
-          />
-        ))}
-      </ul>
-    </React.Fragment>
+    <ul className="reviews__list">
+      {reviews.map((review) => (
+        <ReviewItem key={review.id}
+          review={review}
+        />
+      ))}
+    </ul>
   );
 };
 

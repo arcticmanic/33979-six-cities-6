@@ -8,7 +8,7 @@ import {MAP_DEFAULT_COORDS} from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 const Map = (props) => {
-  const {offers, height, city} = props;
+  const {offers, height, city, activeCardId} = props;
   const filteredOffers = offers.filter((offer) => offer.city.name === city);
   const mapCityCoords = filteredOffers.length ?
     filteredOffers[0].city.location :
@@ -58,6 +58,34 @@ const Map = (props) => {
     };
   }, [city]);
 
+  useEffect(() => {
+    const markers = [];
+
+    offers.forEach((offer) => {
+      const customIcon = Leaflet.icon({
+        iconUrl: offer.id === activeCardId ? `./img/pin-active.svg` : `./img/pin.svg`,
+        iconSize: [30, 30]
+      });
+
+      const marker = Leaflet.marker({
+        lat: offer.location.latitude,
+        lng: offer.location.longitude
+      }, {
+        icon: customIcon
+      });
+
+      marker.addTo(mapRef.current);
+      markers.push(marker);
+    });
+
+    return () => {
+      markers.forEach((marker) => {
+        mapRef.current.removeLayer(marker);
+      });
+    };
+
+  }, [offers, activeCardId]);
+
   return (
     <div id="map" style={{height: `${height}px`, maxWidth: `1144px`, margin: `auto`}} ref={mapRef}></div>
   );
@@ -67,6 +95,7 @@ Map.propTypes = {
   offers: PropTypes.arrayOf(offerType).isRequired,
   height: PropTypes.number.isRequired,
   city: PropTypes.string.isRequired,
+  activeCardId: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({
