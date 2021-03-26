@@ -6,13 +6,12 @@ import {offerType} from '../../types';
 const PlaceCardList = (props) => {
   const [activeOffer, setActiveOffer] = useState({id: null});
   const isNearby = false;
-  const {offers, placesCount, city, onCardMouseOver} = props;
+  const {offers, city, onCardMouseOver} = props;
 
   return (
     <React.Fragment>
       {offers
         .filter((offer) => offer.city.name === city)
-        .slice(0, placesCount)
         .map((offer) => (
           <PlaceCard key={offer.id}
             isNearby={isNearby}
@@ -30,7 +29,6 @@ const PlaceCardList = (props) => {
 
 PlaceCardList.propTypes = {
   offers: PropTypes.arrayOf(offerType),
-  placesCount: PropTypes.number.isRequired,
   city: PropTypes.string.isRequired,
   onCardMouseOver: PropTypes.func.isRequired,
 };

@@ -32,6 +32,7 @@ LocationList.propTypes = {
 
 const mapStateToProps = (state) => ({
   city: state.city,
+  locations: state.cities
 });
 
 const mapDispatchToProps = (dispatch) => ({
