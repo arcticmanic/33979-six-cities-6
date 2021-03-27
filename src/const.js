@@ -11,7 +11,7 @@ export const MAP_DEFAULT_COORDS = {
   zoom: 6
 };
 
-export const defaultConstType = `POPULAR`;
+export const defaultSortType = `POPULAR`;
 
 export const sortType = {
   POPULAR: {
@@ -30,4 +30,16 @@ export const sortType = {
     value: `RATE`,
     label: `Top rated first`,
   },
+};
+
+export const RoutePaths = {
+  MAIN_SCREEN: `/`,
+  LOGIN_SCREEN: `/login`,
+  FAVORITES_SCREEN: `/favorites`,
+  OFFER_SCREEN: `/offer/:id`,
+};
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
 };

@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {sortType, defaultConstType} from '../../const';
+import {sortType, defaultSortType} from '../../const';
 
 const Sort = ({onSortTypeChange}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [sortTypeState, setSortType] = useState(defaultConstType);
+  const [sortTypeState, setSortType] = useState(defaultSortType);
 
   const handleFormClick = (openStatus) => {
     setIsOpen(!openStatus);
