@@ -3,33 +3,37 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import MainPage from '../main-page/main-page';
 import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorites-page';
-import FavoritesEmptyPage from '../favorites-empty-page/favorites-empty-page';
 import PropertyPage from '../property-page/property-page';
-import PropertyNotLoggedPage from '../property-not-logged-page/property-not-logged-page';
 import NotFoundPage from '../not-found-page/not-found-page';
+import {RoutePaths} from '../../const';
+import reviews from '../../mocks/reviews';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={RoutePaths.MAIN_SCREEN}>
           <MainPage />
         </Route>
-        <Route exact path="/dev-favorites-empty">
-          <FavoritesEmptyPage />
-        </Route>
-        <Route exact path="/dev-property-not-logged">
-          <PropertyNotLoggedPage />
-        </Route>
-        <Route exact path="/login">
+        <Route exact path={RoutePaths.LOGIN_SCREEN}>
           <LoginPage />
         </Route>
-        <Route exact path="/favorites">
+        <Route path={RoutePaths.FAVORITES_SCREEN} exact>
           <FavoritesPage />
         </Route>
-        <Route exact path="/offer/:id">
-          <PropertyPage onReview={() => {}} />
-        </Route>
+        <Route path={RoutePaths.OFFER_SCREEN} exact
+          render={(routeProps) => {
+            const propertyId = routeProps.match.params.id;
+
+            return (
+              <PropertyPage
+                reviews={reviews}
+                propertyId={propertyId}
+                onReview={() => {}}
+              />
+            );
+          }}
+        />
         <Route>
           <NotFoundPage />
         </Route>

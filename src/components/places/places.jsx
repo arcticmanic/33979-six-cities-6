@@ -2,13 +2,12 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {offerType} from '../../types';
 import {connect} from 'react-redux';
-import {ActionCreator} from "../../store/action";
 import PlaceCardList from '../place-card-list/place-card-list';
 import Sort from '../sort/sort';
 import Map from '../map/map';
 
 const Places = (props) => {
-  const {city, offers, onSortTypeSelect} = props;
+  const {city, offers} = props;
   const [activeCardId, setActiveCardId] = useState(null);
 
   const onCardMouseOver = (offer) => {
@@ -25,7 +24,7 @@ const Places = (props) => {
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{`${offersPerCityCount} ${countString} to stay in ${city}`}</b>
-        <Sort onSortTypeChange={onSortTypeSelect} />
+        <Sort />
         <div className="cities__places-list places__list tabs__content">
           <PlaceCardList offers={offersPerCity} city={city} onCardMouseOver={onCardMouseOver} />
         </div>
@@ -42,7 +41,6 @@ const Places = (props) => {
 Places.propTypes = {
   offers: PropTypes.arrayOf(offerType),
   city: PropTypes.string.isRequired,
-  onSortTypeSelect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({offers, city}) => ({
@@ -50,11 +48,6 @@ const mapStateToProps = ({offers, city}) => ({
   city,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onSortTypeSelect(type) {
-    dispatch(ActionCreator.sortOffers(type));
-  },
-});
 
 export {Places};
-export default connect(mapStateToProps, mapDispatchToProps)(Places);
+export default connect(mapStateToProps)(Places);
