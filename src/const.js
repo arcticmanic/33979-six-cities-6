@@ -33,10 +33,16 @@ export const sortType = {
 };
 
 export const RoutePaths = {
-  MAIN_SCREEN: `/`,
-  LOGIN_SCREEN: `/login`,
-  FAVORITES_SCREEN: `/favorites`,
-  OFFER_SCREEN: `/offer/:id`,
+  MAIN_PAGE: `/`,
+  LOGIN_PAGE: `/login`,
+  FAVORITES_PAGE: `/favorites`,
+  OFFER_PAGE: `/offer/:id`,
+};
+
+export const APIRoutePaths = {
+  LOGIN: `/login`,
+  LOGOUT: `/logout`,
+  HOTELS: `/hotels`
 };
 
 export const AuthorizationStatus = {
@@ -93,4 +99,8 @@ export const CitiesInfo = {
     },
     zoom: 12,
   },
+};
+
+export const Colors = {
+  SITE_BLUE: `#4481c3`
 };

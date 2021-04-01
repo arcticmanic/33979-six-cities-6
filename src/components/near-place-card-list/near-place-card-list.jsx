@@ -11,13 +11,11 @@ const NearPlaceCardList = ({
   cardId,
   onCursor,
   isNearOffersLoaded,
-  onLoadNearPlaces,
+  onLoadNearOffers,
 }) => {
   useEffect(() => {
-    if (!isNearOffersLoaded) {
-      onLoadNearPlaces(cardId);
-    }
-  }, [isNearOffersLoaded]);
+    onLoadNearOffers(cardId);
+  }, [cardId]);
 
   if (!isNearOffersLoaded) {
     return <Spinner />;
@@ -40,7 +38,7 @@ NearPlaceCardList.propTypes = {
   offers: PropTypes.arrayOf(offerType),
   onCursor: PropTypes.func.isRequired,
   isNearOffersLoaded: PropTypes.bool.isRequired,
-  onLoadNearPlaces: PropTypes.func.isRequired,
+  onLoadNearOffers: PropTypes.func.isRequired,
   cardId: PropTypes.number.isRequired,
 };
 
@@ -50,7 +48,7 @@ const mapStateToProps = ({isNearOffersLoaded, nearOffers}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoadNearPlaces(id) {
+  onLoadNearOffers(id) {
     dispatch(fetchNearOffers(id));
   },
 });

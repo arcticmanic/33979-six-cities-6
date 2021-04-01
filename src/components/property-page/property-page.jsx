@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {reviewType} from '../../types';
 import {connect} from 'react-redux';
 import {offerType} from '../../types';
-import {CitiesInfo} from '../../const';
+import NotFoundPage from '../not-found-page/not-found-page';
+import {ActionCreator} from '../../store/action';
 import FormAddReview from '../form-add-review/form-add-review';
 import ReviewList from '../review-list/review-list';
 import Map from '../map/map';
@@ -13,7 +14,7 @@ import Header from '../header/header';
 import Spinner from '../loading/loading';
 
 const PropertyPage = (props) => {
-  const {reviews, onReview, offers, isOffersLoaded, propertyId, nearOffers} = props;
+  const {reviews, onReview, offers, isOffersLoaded, propertyId, nearOffers, onLocationChange} = props;
   const [activeCardId, setActiveCardId] = useState(null);
   const MAP_SIZE = 579;
 
@@ -23,10 +24,15 @@ const PropertyPage = (props) => {
 
   const currentOffer = offers.find(({id}) => id === parseFloat(propertyId));
 
+  if (!currentOffer) {
+    return <NotFoundPage />;
+  }
+
   const {
     id,
     bedrooms,
     description,
+    city,
     goods,
     host,
     images,
@@ -38,7 +44,7 @@ const PropertyPage = (props) => {
     type
   } = currentOffer;
 
-  const currentCity = CitiesInfo[currentOffer.city.name];
+  onLocationChange(city.name);
 
   const propertyImages = images.slice(0, 6);
 
@@ -139,7 +145,7 @@ const PropertyPage = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map city={currentCity} offers={nearOffers} height={MAP_SIZE} activeCardId={activeCardId} />
+            <Map offers={nearOffers} height={MAP_SIZE} activeCardId={activeCardId} />
           </section>
         </section>
         <div className="container">
@@ -162,6 +168,7 @@ PropertyPage.propTypes = {
   nearOffers: PropTypes.arrayOf(offerType),
   isOffersLoaded: PropTypes.bool.isRequired,
   propertyId: PropTypes.string.isRequired,
+  onLocationChange: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({offers, isOffersLoaded, nearOffers}) => ({
@@ -170,5 +177,11 @@ const mapStateToProps = ({offers, isOffersLoaded, nearOffers}) => ({
   nearOffers,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onLocationChange(location) {
+    dispatch(ActionCreator.changeCity(location));
+  }
+});
+
 export {PropertyPage};
-export default connect(mapStateToProps, null)(PropertyPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PropertyPage);

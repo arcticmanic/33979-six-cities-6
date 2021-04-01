@@ -11,6 +11,8 @@ const initialState = {
   nearOffers: [],
   isNearOffersLoaded: false,
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  login: ``,
+  userAvatar: ``
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,6 +21,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         city: action.payload
+      };
+
+    case ActionType.CHANGE_SORT:
+      return {
+        ...state,
+        sort: action.payload
       };
 
     case ActionType.RESET_APP:
@@ -46,10 +54,22 @@ const reducer = (state = initialState, action) => {
         isNearOffersLoaded: true,
       };
 
-    case ActionType.REQUIRED_AUTHORIZATION:
+    case ActionType.REQUIRE_AUTHORIZATION:
       return {
         ...state,
         authorizationStatus: action.payload
+      };
+
+    case ActionType.CHANGE_USERNAME:
+      return {
+        ...state,
+        login: action.payload
+      };
+
+    case ActionType.USER_AVATAR:
+      return {
+        ...state,
+        userAvatar: action.payload
       };
   }
 

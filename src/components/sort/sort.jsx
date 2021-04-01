@@ -4,9 +4,8 @@ import {sortType} from '../../const';
 import {connect} from 'react-redux';
 import SortItem from "../sort-item/sort-item";
 
-const Sort = (props) => {
-  const {currentSortType} = props;
-  const sortTypesList = Object.values(sortType).map((item) => item.value);
+const Sort = ({currentSortType}) => {
+  const sortTypesList = Object.values(sortType);
 
   const sortList = useRef();
 
@@ -18,15 +17,14 @@ const Sort = (props) => {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
-      <span className="places__sorting-type" tabIndex="0">
-        {currentSortType}
+      <span className="places__sorting-type" tabIndex="0" onClick={handleSortListClick}>
+        {sortType[currentSortType].label}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
       <ul
         className="places__options places__options--custom"
-        onClick={handleSortListClick}
         ref={sortList}
       >
         {sortTypesList.map((type, i) => (

@@ -1,27 +1,27 @@
 import React from 'react';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router} from 'react-router-dom';
 import MainPage from '../main-page/main-page';
 import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorites-page';
 import PropertyPage from '../property-page/property-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import {RoutePaths} from '../../const';
+import PrivateRoute from '../private-route/private-route';
+import browserHistory from '../../browser-history';
 import reviews from '../../mocks/reviews';
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Router history={browserHistory}>
       <Switch>
-        <Route exact path={RoutePaths.MAIN_SCREEN}>
-          <MainPage />
-        </Route>
-        <Route exact path={RoutePaths.LOGIN_SCREEN}>
+        <Route exact path={RoutePaths.LOGIN_PAGE}>
           <LoginPage />
         </Route>
-        <Route path={RoutePaths.FAVORITES_SCREEN} exact>
-          <FavoritesPage />
+        <Route exact path={RoutePaths.MAIN_PAGE}>
+          <MainPage />
         </Route>
-        <Route path={RoutePaths.OFFER_SCREEN} exact
+        <PrivateRoute path={RoutePaths.FAVORITES_PAGE} exact component={FavoritesPage} />
+        <Route path={RoutePaths.OFFER_PAGE} exact
           render={(routeProps) => {
             const propertyId = routeProps.match.params.id;
 
@@ -38,7 +38,7 @@ const App = () => {
           <NotFoundPage />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 };
 
