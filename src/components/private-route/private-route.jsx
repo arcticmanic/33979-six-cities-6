@@ -1,29 +1,19 @@
 import React from 'react';
-import {Redirect, Route} from 'react-router-dom';
-import {AuthorizationStatus, RoutePaths} from '../../const';
+import {AuthorizationStatus} from '../../const';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Spinner from '../loading/loading';
 
-const PrivateRoute = ({authorizationStatus, isOffersLoaded, component: Component, ...rest}) => {
+const PrivateRoute = ({authorizationStatus, isOffersLoaded, component, noAuth}) => {
   if (!isOffersLoaded) {
     return (
-      <Route>
-        <Spinner />;
-      </Route>
+      <Spinner />
     );
   }
   return (
-    <Route
-      {...rest}
-      render={(props) => {
-        return (
-          authorizationStatus === AuthorizationStatus.AUTH
-            ? <Component {...props} />
-            : <Redirect to={RoutePaths.LOGIN_PAGE} />
-        );
-      }}
-    />
+    authorizationStatus === AuthorizationStatus.AUTH
+      ? component()
+      : noAuth()
   );
 };
 

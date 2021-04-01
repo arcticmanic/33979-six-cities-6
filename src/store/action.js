@@ -8,7 +8,8 @@ export const ActionType = {
   REQUIRE_AUTHORIZATION: `user/requireAuthorization`,
   CHANGE_USERNAME: `user/changeName`,
   USER_AVATAR: ``,
-  REDIRECT: `app/redirect`
+  REDIRECT: `app/redirect`,
+  LOAD_COMMENTS: `data/loadOfferComments`
 };
 
 export const ActionCreator = {
@@ -48,4 +49,8 @@ export const ActionCreator = {
     type: ActionType.CHANGE_SORT,
     payload: sort
   }),
+  getComments: (comments) => ({
+    type: ActionType.LOAD_COMMENTS,
+    payload: comments
+  })
 };
