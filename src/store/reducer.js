@@ -12,7 +12,9 @@ const initialState = {
   isNearOffersLoaded: false,
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   login: ``,
-  userAvatar: ``
+  userAvatar: ``,
+  comments: [],
+  isCommentsLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -70,6 +72,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         userAvatar: action.payload
+      };
+
+    case ActionType.LOAD_COMMENTS:
+      return {
+        ...state,
+        comments: action.payload,
+        isCommentsLoaded: true
       };
   }
 

@@ -12,9 +12,10 @@ import NearPlaceCardList from '../near-place-card-list/near-place-card-list';
 import UserProperty from '../user/user-property';
 import Header from '../header/header';
 import Spinner from '../loading/loading';
+import PrivateRoute from '../private-route/private-route';
 
 const PropertyPage = (props) => {
-  const {reviews, onReview, offers, isOffersLoaded, propertyId, nearOffers, onLocationChange} = props;
+  const {offers, isOffersLoaded, propertyId, nearOffers, onLocationChange} = props;
   const [activeCardId, setActiveCardId] = useState(null);
   const MAP_SIZE = 579;
 
@@ -138,9 +139,8 @@ const PropertyPage = (props) => {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewList reviews={reviews} />
-                <FormAddReview onReview={onReview} />
+                <ReviewList id={id} />
+                <PrivateRoute component={() => <FormAddReview id={id} />} noAuth={() => ``}/>
               </section>
             </div>
           </div>
