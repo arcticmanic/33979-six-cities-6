@@ -1,9 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
+import {AuthorizationStatus, RoutePath} from '../../const';
 import {offerType} from '../../types';
+import browserHistory from '../../browser-history';
+import {useDispatch, useSelector} from 'react-redux';
+import {sendFavoriteStatus} from '../../store/api-actions';
 
-const NearPlaceCard = ({offer, onCursor}) => {
+const NearPlaceCard = ({offer}) => {
   const {
     id,
     preview_image: previewImage,
@@ -12,17 +15,27 @@ const NearPlaceCard = ({offer, onCursor}) => {
     title,
     type,
     rating,
+    is_favorite: isFavorite
   } = offer;
 
   const ratingInPercents = rating * 10 * 2 + `%`;
-  const handleCursorHover = () => onCursor(id);
-  const handleCursorOut = () => onCursor(null);
+
+  const dispatch = useDispatch();
+  const {authorizationStatus} = useSelector((state) => state.USER);
+  const {isFavoriteStatusChanged} = useSelector((state) => state.DATA);
+
+  const handleFavoriteClick = () => {
+    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+      browserHistory.push(RoutePath.LOGIN_PAGE);
+    } else {
+      const isFavoriteCard = Number(!isFavorite);
+
+      dispatch(sendFavoriteStatus(id, isFavoriteCard));
+    }
+  };
+
   return (
-    <article
-      className="near-places__card place-card"
-      onMouseEnter={handleCursorHover}
-      onMouseLeave={handleCursorOut}
-    >
+    <article className="near-places__card place-card">
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -45,10 +58,7 @@ const NearPlaceCard = ({offer, onCursor}) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            className="place-card__bookmark-button place-card__bookmark-button--active button"
-            type="button"
-          >
+          <button className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`} type="button" onClick={handleFavoriteClick} disabled={!isFavoriteStatusChanged}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -78,7 +88,6 @@ const NearPlaceCard = ({offer, onCursor}) => {
 
 NearPlaceCard.propTypes = {
   offer: offerType,
-  onCursor: PropTypes.func,
 };
 
 export default NearPlaceCard;

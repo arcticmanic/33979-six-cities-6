@@ -1,34 +1,33 @@
 import Leaflet from 'leaflet';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {offerType} from '../../types';
-import {connect} from 'react-redux';
-import {CitiesInfo} from '../../const.js';
+import {CityInfo} from '../../const.js';
+import {useSelector} from 'react-redux';
 
 import 'leaflet/dist/leaflet.css';
 
-const Map = (props) => {
-  const {offers, height, city, activeCardId} = props;
-
-  const mapRef = useRef();
+const Map = ({offers, height, activeCardId}) => {
+  const {location: city} = useSelector((state) => state.PAGE);
 
   useEffect(() => {
-    const cityCoords = CitiesInfo[city].coords;
-    const cityZoom = CitiesInfo[city].zoom;
+    const cityCoords = CityInfo[city].coords;
+    const cityZoom = CityInfo[city].zoom;
 
-    mapRef.current = Leaflet.map(`map`, {
+    const mapView = Leaflet.map(`map`, {
       center: cityCoords,
       zoom: cityZoom,
       zoomControl: false,
       marker: true
     });
-    mapRef.current.setView(cityCoords, cityZoom);
+
+    mapView.setView(cityCoords, cityZoom);
 
     Leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
-      .addTo(mapRef.current);
+      .addTo(mapView);
 
     offers.forEach(({id, location, title}) => {
       const customIcon = Leaflet.icon({
@@ -42,30 +41,24 @@ const Map = (props) => {
       }, {
         icon: customIcon
       })
-      .addTo(mapRef.current)
+      .addTo(mapView)
       .bindPopup(title);
     });
 
     return () => {
-      mapRef.current.remove();
+      mapView.remove();
     };
   }, [city, activeCardId, offers]);
 
   return (
-    <div id="map" style={{height: `${height}px`, maxWidth: `1144px`, margin: `auto`}} ref={mapRef}></div>
+    <div id="map" style={{height: `${height}px`, maxWidth: `1144px`, margin: `auto`}}></div>
   );
 };
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(offerType).isRequired,
   height: PropTypes.number.isRequired,
-  city: PropTypes.string.isRequired,
   activeCardId: PropTypes.number,
 };
 
-const mapStateToProps = ({city}) => ({
-  city,
-});
-
-export {Map};
-export default connect(mapStateToProps, null)(Map);
+export default Map;

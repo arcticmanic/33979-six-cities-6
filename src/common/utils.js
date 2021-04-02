@@ -1,4 +1,4 @@
-import {CitiesInfo} from "../const";
+import {CityInfo} from "../const";
 
 export const getCityNames = (offers) => {
   return offers.reduce((acc, offer) => {
@@ -7,7 +7,7 @@ export const getCityNames = (offers) => {
 };
 
 export const getCityFiltredPlaces = (offers) => {
-  const cities = Object.keys(CitiesInfo);
+  const cities = Object.keys(CityInfo);
 
   return cities.reduce((acc, city) => {
     const placesInCurrentCity = offers.filter((offer) => {
@@ -22,3 +22,11 @@ export const getCityFiltredPlaces = (offers) => {
     );
   }, {});
 };
+
+export const sortOffersPopular = (offerA, offerB) => (offerA.id - offerB.id);
+
+export const sortOffersPriceToLow = (offerA, offerB) => (offerB.price - offerA.price);
+
+export const sortOffersPriceToHight = (offerA, offerB) => (offerA.price - offerB.price);
+
+export const sortOffersRate = (offerA, offerB) => (offerB.rating - offerA.rating);

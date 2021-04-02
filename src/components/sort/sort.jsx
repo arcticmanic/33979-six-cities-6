@@ -1,11 +1,11 @@
 import React, {useRef} from "react";
-import PropTypes from 'prop-types';
-import {sortType} from '../../const';
-import {connect} from 'react-redux';
+import {SortType} from '../../const';
+import {useSelector} from 'react-redux';
 import SortItem from "../sort-item/sort-item";
 
-const Sort = ({currentSortType}) => {
-  const sortTypesList = Object.values(sortType);
+const Sort = () => {
+  const {sort: currentSortType} = useSelector((state) => state.PAGE);
+  const sortTypesList = Object.values(SortType);
 
   const sortList = useRef();
 
@@ -18,7 +18,7 @@ const Sort = ({currentSortType}) => {
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex="0" onClick={handleSortListClick}>
-        {sortType[currentSortType].label}
+        {currentSortType}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
@@ -35,13 +35,4 @@ const Sort = ({currentSortType}) => {
   );
 };
 
-Sort.propTypes = {
-  currentSortType: PropTypes.string.isRequired
-};
-
-const mapStateToProps = ({sort}) => ({
-  currentSortType: sort,
-});
-
-export {Sort};
-export default connect(mapStateToProps)(Sort);
+export default Sort;

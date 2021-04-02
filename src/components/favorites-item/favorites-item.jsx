@@ -14,12 +14,11 @@ const FavoritesItem = ({city, offers}) => {
         </div>
       </div>
       <div className="favorites__places">
-        {offers.map((offer) => <FavoritesPlace card={offer} key={offer[`id`]}/>) }
+        {offers.map((offer) => <FavoritesPlace offer={offer} key={offer[`id`]}/>) }
       </div>
     </li>
   );
 };
-
 
 FavoritesItem.propTypes = {
   city: PropTypes.string.isRequired,

@@ -1,9 +1,17 @@
 import React from 'react';
 import {offerType} from '../../types';
+import {useDispatch} from 'react-redux';
+import {sendFavoriteStatus} from '../../store/api-actions.js';
 
 const FavoritesOffer = ({offer}) => {
-  const {preview_image: previewImage, is_premium: isPremium, price, title, type, rating} = offer;
+  const {preview_image: previewImage, is_premium: isPremium, is_favorite: isFavorite, price, title, type, rating, id} = offer;
   const ratingInPercents = rating * 20 + `%`;
+  const dispatch = useDispatch();
+  const handleFavoriteClick = () => {
+    const isFavoriteCard = Number(!isFavorite);
+
+    dispatch(sendFavoriteStatus(id, isFavoriteCard));
+  };
 
   return (
     <article className="favorites__card place-card">
@@ -19,7 +27,7 @@ const FavoritesOffer = ({offer}) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <button className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`} onClick={handleFavoriteClick} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
