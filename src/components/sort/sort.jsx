@@ -1,60 +1,47 @@
-import React, {useState} from 'react';
+import React, {useRef} from "react";
 import PropTypes from 'prop-types';
-import {sortType, defaultSortType} from '../../const';
+import {sortType} from '../../const';
+import {connect} from 'react-redux';
+import SortItem from "../sort-item/sort-item";
 
-const Sort = ({onSortTypeChange}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [sortTypeState, setSortType] = useState(defaultSortType);
+const Sort = ({currentSortType}) => {
+  const sortTypesList = Object.values(sortType);
 
-  const handleFormClick = (openStatus) => {
-    setIsOpen(!openStatus);
-  };
+  const sortList = useRef();
 
-  const handleSortType = (type) => {
-    setSortType(type);
+  const handleSortListClick = () => {
+    const sortTypeElement = sortList.current;
+    sortTypeElement.classList.toggle(`places__options--opened`);
   };
 
   return (
-    <React.Fragment>
-      <form
-        className="places__sorting"
-        action="#"
-        method="get"
-        onClick={(evt) => {
-          evt.preventDefault();
-          handleFormClick(isOpen);
-        }}
+    <form className="places__sorting" action="#" method="get">
+      <span className="places__sorting-caption">Sort by </span>
+      <span className="places__sorting-type" tabIndex="0" onClick={handleSortListClick}>
+        {sortType[currentSortType].label}
+        <svg className="places__sorting-arrow" width="7" height="4">
+          <use xlinkHref="#icon-arrow-select"></use>
+        </svg>
+      </span>
+      <ul
+        className="places__options places__options--custom"
+        ref={sortList}
       >
-        <span className="places__sorting-caption">Sort by </span>
-        <span className="places__sorting-type" tabIndex="0">
-          {sortType[sortTypeState].label}
-          <svg className="places__sorting-arrow" width="7" height="4">
-            <use xlinkHref="#icon-arrow-select"></use>
-          </svg>
-        </span>
-        <ul className={`places__options places__options--custom ${isOpen && `places__options--opened`}`}>
-          {Object.keys(sortType).map((type, index)=> (
-            <li
-              key={`type-${index}`}
-              className={`places__option ${sortTypeState === type ? `places__option--active` : ``} `}
-              tabIndex="0"
-              onClick={(evt) => {
-                evt.preventDefault();
-                onSortTypeChange(type);
-                handleSortType(type);
-              }}
-            >
-              {sortType[type].label}
-            </li>
-          ))}
-        </ul>
-      </form>
-    </React.Fragment>
+        {sortTypesList.map((type, i) => (
+          <SortItem sortType={type} key={`${type}-${i}`} />
+        ))}
+      </ul>
+    </form>
   );
 };
 
 Sort.propTypes = {
-  onSortTypeChange: PropTypes.func.isRequired
+  currentSortType: PropTypes.string.isRequired
 };
 
-export default Sort;
+const mapStateToProps = ({sort}) => ({
+  currentSortType: sort,
+});
+
+export {Sort};
+export default connect(mapStateToProps)(Sort);

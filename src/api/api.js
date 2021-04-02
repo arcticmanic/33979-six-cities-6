@@ -6,7 +6,9 @@ const BACKEND_URL = `https://6.react.pages.academy/six-cities`;
 const REQUEST_TIMEOUT = 5000;
 
 const HttpCode = {
-  UNAUTHORIZED: 401
+  UNAUTHORIZED: 401,
+  DATA_ERROR: 400,
+  AUTHORIZED: 200,
 };
 
 export const createApi = (onUnauthorized) => {

@@ -33,13 +33,74 @@ export const sortType = {
 };
 
 export const RoutePaths = {
-  MAIN_SCREEN: `/`,
-  LOGIN_SCREEN: `/login`,
-  FAVORITES_SCREEN: `/favorites`,
-  OFFER_SCREEN: `/offer/:id`,
+  MAIN_PAGE: `/`,
+  LOGIN_PAGE: `/login`,
+  FAVORITES_PAGE: `/favorites`,
+  OFFER_PAGE: `/offer/:id`,
+};
+
+export const APIRoutePaths = {
+  LOGIN: `/login`,
+  LOGOUT: `/logout`,
+  HOTELS: `/hotels`
 };
 
 export const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
+};
+
+export const CitiesInfo = {
+  Amsterdam: {
+    name: `Amsterdam`,
+    coords: {
+      lat: 52.38333,
+      lng: 4.9,
+    },
+    zoom: 12,
+  },
+  Paris: {
+    name: `Paris`,
+    coords: {
+      lat: 48.856614,
+      lng: 2.3522219,
+    },
+    zoom: 12,
+  },
+  Cologne: {
+    name: `Cologne`,
+    coords: {
+      lat: 50.93333,
+      lng: 6.95,
+    },
+    zoom: 12,
+  },
+  Brussels: {
+    name: `Brussels`,
+    coords: {
+      lat: 50.8388,
+      lng: 4.3753,
+    },
+    zoom: 12,
+  },
+  Hamburg: {
+    name: `Hamburg`,
+    coords: {
+      lat: 53.55034,
+      lng: 10.00065,
+    },
+    zoom: 12,
+  },
+  Dusseldorf: {
+    name: `Dusseldorf`,
+    coords: {
+      lat: 51.2254,
+      lng: 6.77631,
+    },
+    zoom: 12,
+  },
+};
+
+export const Colors = {
+  SITE_BLUE: `#4481c3`
 };

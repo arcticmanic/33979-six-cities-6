@@ -1,40 +1,44 @@
 import React from 'react';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router} from 'react-router-dom';
 import MainPage from '../main-page/main-page';
 import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorites-page';
-import FavoritesEmptyPage from '../favorites-empty-page/favorites-empty-page';
 import PropertyPage from '../property-page/property-page';
-import PropertyNotLoggedPage from '../property-not-logged-page/property-not-logged-page';
 import NotFoundPage from '../not-found-page/not-found-page';
+import {RoutePaths} from '../../const';
+import PrivateRoute from '../private-route/private-route';
+import browserHistory from '../../browser-history';
+import reviews from '../../mocks/reviews';
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Router history={browserHistory}>
       <Switch>
-        <Route exact path="/">
-          <MainPage />
-        </Route>
-        <Route exact path="/dev-favorites-empty">
-          <FavoritesEmptyPage />
-        </Route>
-        <Route exact path="/dev-property-not-logged">
-          <PropertyNotLoggedPage />
-        </Route>
-        <Route exact path="/login">
+        <Route exact path={RoutePaths.LOGIN_PAGE}>
           <LoginPage />
         </Route>
-        <Route exact path="/favorites">
-          <FavoritesPage />
+        <Route exact path={RoutePaths.MAIN_PAGE}>
+          <MainPage />
         </Route>
-        <Route exact path="/offer/:id">
-          <PropertyPage onReview={() => {}} />
-        </Route>
+        <PrivateRoute path={RoutePaths.FAVORITES_PAGE} exact component={FavoritesPage} />
+        <Route path={RoutePaths.OFFER_PAGE} exact
+          render={(routeProps) => {
+            const propertyId = routeProps.match.params.id;
+
+            return (
+              <PropertyPage
+                reviews={reviews}
+                propertyId={propertyId}
+                onReview={() => {}}
+              />
+            );
+          }}
+        />
         <Route>
           <NotFoundPage />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 };
 
