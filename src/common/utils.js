@@ -30,3 +30,17 @@ export const sortOffersPriceToLow = (offerA, offerB) => (offerB.price - offerA.p
 export const sortOffersPriceToHight = (offerA, offerB) => (offerA.price - offerB.price);
 
 export const sortOffersRate = (offerA, offerB) => (offerB.rating - offerA.rating);
+
+export const sortCommentsByTime = (commentA, commentB) => (Date.parse(commentB.rating) - Date.parse(commentA.rating));
+
+export const getCurrentCityComments = (comments) => {
+  const currentComments = comments.slice();
+
+  if (comments.length < 2) {
+    return currentComments;
+  } else if (comments.length < 11) {
+    return currentComments.sort(sortCommentsByTime);
+  } else {
+    return currentComments.sort(sortCommentsByTime).slice(0, 10);
+  }
+};

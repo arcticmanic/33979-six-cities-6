@@ -31,7 +31,7 @@ const App = () => {
           );
         }}
       />
-      <Route path={RoutePath.NOT_FOUND} exact>
+      <Route>
         <NotFoundPage />
       </Route>
     </Switch>
