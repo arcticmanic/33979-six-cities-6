@@ -1,16 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {offerType} from '../../types';
-import {connect} from 'react-redux';
 import LocationList from '../location-list/location-list';
+import {useSelector} from 'react-redux';
 import Header from '../header/header';
-import Places from '../places/places';
-import NoPlaces from '../no-places/no-places';
+import PlaceCardList from '../place-card-list/place-card-list';
 import Spinner from '../loading/loading';
 
-const MainPage = (props) => {
-  const {offers, city, isOffersLoaded} = props;
-  const offersPerCity = offers.filter((offer) => offer.city.name === city);
+const MainPage = () => {
+  const {isOffersLoaded} = useSelector((state) => state.DATA);
 
   if (!isOffersLoaded) {
     return (
@@ -29,27 +25,11 @@ const MainPage = (props) => {
           </section>
         </div>
         <div className="cities">
-          {offersPerCity.length < 1 ?
-            <NoPlaces /> :
-            <Places />
-          }
+          <PlaceCardList />
         </div>
       </main>
     </div>
   );
 };
 
-MainPage.propTypes = {
-  offers: PropTypes.arrayOf(offerType),
-  city: PropTypes.string.isRequired,
-  isOffersLoaded: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = ({offers, city, isOffersLoaded}) => ({
-  offers,
-  city,
-  isOffersLoaded
-});
-
-export {MainPage};
-export default connect(mapStateToProps, null)(MainPage);
+export default MainPage;

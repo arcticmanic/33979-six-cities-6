@@ -1,25 +1,18 @@
-import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import ReviewItem from '../review-item/review-item';
-import {reviewType} from '../../types';
-import {connect} from 'react-redux';
-import Spinner from '../loading/loading';
-import {fetchCommentsList} from '../../store/api-actions.js';
+import {useSelector} from 'react-redux';
+import {getCurrentCityComments} from '../../common/utils';
 
-const ReviewList = ({comments, isCommentsLoaded, onLoad, id}) => {
-  useEffect(() => {
-    onLoad(id);
-  }, [id]);
 
-  if (!isCommentsLoaded) {
-    return <Spinner />;
-  }
+const ReviewList = () => {
+  const {comments} = useSelector((state) => state.CURRENT_OFFER);
+  const currentComments = getCurrentCityComments(comments);
 
   return (
     <React.Fragment>
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{currentComments.length}</span></h2>
       <ul className="reviews__list">
-        {comments.map((review) => (
+        {currentComments.map((review) => (
           <ReviewItem key={review.id}
             review={review}
           />
@@ -29,23 +22,4 @@ const ReviewList = ({comments, isCommentsLoaded, onLoad, id}) => {
   );
 };
 
-ReviewList.propTypes = {
-  comments: PropTypes.arrayOf(reviewType),
-  isCommentsLoaded: PropTypes.bool.isRequired,
-  onLoad: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired
-};
-
-const mapStateToProps = ({isCommentsLoaded, comments}) => ({
-  isCommentsLoaded,
-  comments
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoad(id) {
-    dispatch(fetchCommentsList(id));
-  }
-});
-
-export {ReviewList};
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewList);
+export default ReviewList;

@@ -1,36 +1,47 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
+import {createSelector} from 'reselect';
 import PlaceCard from '../place-card/place-card';
-import {offerType} from '../../types';
+import Sort from '../sort/sort';
+import Map from '../map/map';
+import NoPlaces from '../no-places/no-places';
+import {getCurrentCityOffers} from '../../store/offers-data/selectors';
+import {MapSize} from '../../const';
 
-const PlaceCardList = (props) => {
-  const [activeOffer, setActiveOffer] = useState({id: null});
-  const isNearby = false;
-  const {offers, city, onCardMouseOver} = props;
+const PlaceCardList = () => {
+  const [activeCardId, setActiveCardId] = useState(null);
+  const {location: currentCity} = useSelector((state) => state.PAGE);
+  const rootState = useSelector((state) => state);
+
+  const getOffers = (state) => state.DATA.offers;
+  const getLocation = (state) => state.PAGE.location;
+  const getSortType = (state) => state.PAGE.sort;
+
+  const currentCityOffers = createSelector(getOffers, getLocation, getSortType, getCurrentCityOffers)(rootState);
+
+  const countString = currentCityOffers === 1 ? `place` : `places`;
+
+  if (currentCityOffers.length === 0) {
+    return <NoPlaces />;
+  }
 
   return (
-    <React.Fragment>
-      {offers
-        .filter((offer) => offer.city.name === city)
-        .map((offer) => (
-          <PlaceCard key={offer.id}
-            isNearby={isNearby}
-            offer={offer}
-            isActive={activeOffer.id === offer.id}
-            onOfferMouseEnter={() => {
-              setActiveOffer(offer.id);
-              onCardMouseOver(offer);
-            }}
-          />
-        ))}
-    </React.Fragment>
+    <div className="cities__places-container container">
+      <section className="cities__places places">
+        <h2 className="visually-hidden">Places</h2>
+        <b className="places__found">{`${currentCityOffers.length} ${countString} to stay in ${currentCity}`}</b>
+        <Sort />
+        <div className="cities__places-list places__list tabs__content">
+          {currentCityOffers.map((offer) => <PlaceCard offer={offer} onCursorHandle={setActiveCardId} key={offer[`id`]} />) }
+        </div>
+      </section>
+      <div className="cities__right-section">
+        <section className="cities__map map">
+          <Map offers={currentCityOffers} height={MapSize.MAIN} activeCardId={activeCardId} />
+        </section>
+      </div>
+    </div>
   );
-};
-
-PlaceCardList.propTypes = {
-  offers: PropTypes.arrayOf(offerType),
-  city: PropTypes.string.isRequired,
-  onCardMouseOver: PropTypes.func.isRequired,
 };
 
 export default PlaceCardList;

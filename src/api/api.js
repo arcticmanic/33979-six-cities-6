@@ -9,6 +9,7 @@ const HttpCode = {
   UNAUTHORIZED: 401,
   DATA_ERROR: 400,
   AUTHORIZED: 200,
+  NOT_FOUND: 404
 };
 
 export const createApi = (onUnauthorized) => {

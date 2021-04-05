@@ -3,7 +3,12 @@ export const Setting = {
   NEARBY_PLACES_COUNT: 3
 };
 
-export const CITIES = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
+export const RATING = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
+
+export const MapSize = {
+  MAIN: 960,
+  PROPERTY: 579
+};
 
 export const MAP_DEFAULT_COORDS = {
   latitude: 49.1520025,
@@ -11,39 +16,27 @@ export const MAP_DEFAULT_COORDS = {
   zoom: 6
 };
 
-export const defaultSortType = `POPULAR`;
-
-export const sortType = {
-  POPULAR: {
-    value: `POPULAR`,
-    label: `Popular`,
-  },
-  ASC_PRICE: {
-    value: `ASC_PRICE`,
-    label: `Price: low to high`,
-  },
-  DESC_PRICE: {
-    value: `DESC_PRICE`,
-    label: `Price: high to low`,
-  },
-  RATE: {
-    value: `RATE`,
-    label: `Top rated first`,
-  },
+export const SortType = {
+  POPULAR: `Popular`,
+  PRICE_LOW_TO_HIGH: `Price: low to high`,
+  PRICE_HIGH_TO_LOW: `Price: high to low`,
+  TOP_RATED_FIRST: `Top rated first`
 };
 
-export const RoutePaths = {
+export const RoutePath = {
   MAIN_PAGE: `/`,
   LOGIN_PAGE: `/login`,
   FAVORITES_PAGE: `/favorites`,
   OFFER_PAGE: `/offer/:id`,
+  NOT_FOUND: `/404`
 };
 
-export const APIRoutePaths = {
+export const APIRoutePath = {
   LOGIN: `/login`,
   LOGOUT: `/logout`,
   HOTELS: `/hotels`,
-  COMMENTS: `/comments`
+  COMMENTS: `/comments`,
+  FAVORITE: `/favorite`
 };
 
 export const AuthorizationStatus = {
@@ -51,7 +44,28 @@ export const AuthorizationStatus = {
   NO_AUTH: `NO_AUTH`,
 };
 
-export const CitiesInfo = {
+export const CityList = {
+  Paris: `Paris`,
+  Cologne: `Cologne`,
+  Brussels: `Brussels`,
+  Amsterdam: `Amsterdam`,
+  Hamburg: `Hamburg`,
+  Dusseldorf: `Dusseldorf`
+};
+
+export const CommentSettings = {
+  MIN_SIZE: 50,
+  MAX_SIZE: 300,
+};
+
+export const FetchStatus = {
+  PENDING: `PENDING`,
+  SENDING: `SENDING`,
+  DONE: `DONE`,
+  ERROR: `ERROR`
+};
+
+export const CityInfo = {
   Amsterdam: {
     name: `Amsterdam`,
     coords: {
@@ -105,3 +119,5 @@ export const CitiesInfo = {
 export const Colors = {
   SITE_BLUE: `#4481c3`
 };
+
+export const CLICK_TIMEOUT = 1000;

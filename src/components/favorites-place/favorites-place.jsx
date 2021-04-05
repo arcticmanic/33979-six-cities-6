@@ -1,9 +1,23 @@
 import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {FetchStatus} from '../../const.js';
+import {changeFetchStatus} from '../../store/current-offer-data/actions.js';
+import {sendFavoriteStatus} from '../../store/current-offer-data/api-actions.js';
 import {offerType} from '../../types';
 
 const FavoritesOffer = ({offer}) => {
-  const {preview_image: previewImage, is_premium: isPremium, price, title, type, rating} = offer;
+  const {preview_image: previewImage, is_premium: isPremium, is_favorite: isFavorite, price, title, type, rating, id} = offer;
   const ratingInPercents = rating * 20 + `%`;
+  const dispatch = useDispatch();
+  const {fetchStatus} = useSelector((state) => state.DATA);
+
+  const handleFavoriteClick = () => {
+    const isFavoriteCard = Number(!isFavorite);
+
+    dispatch(sendFavoriteStatus(id, isFavoriteCard));
+    dispatch(changeFetchStatus(FetchStatus.SENDING));
+  };
 
   return (
     <article className="favorites__card place-card">
@@ -19,7 +33,12 @@ const FavoritesOffer = ({offer}) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <button
+            className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`}
+            onClick={handleFavoriteClick}
+            type="button"
+            disabled={fetchStatus === FetchStatus.SENDING}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -37,7 +56,7 @@ const FavoritesOffer = ({offer}) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/${id}`} href="#">{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

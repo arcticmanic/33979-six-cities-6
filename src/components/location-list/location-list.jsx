@@ -1,45 +1,29 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {cityType} from '../../types';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import React, {useCallback} from 'react';
 import LocationItem from '../location-item/location-item';
+import {CityList} from '../../const';
+import {useDispatch, useSelector} from 'react-redux';
+import {setLocation} from '../../store/page-data/actions';
 
-const LocationList = (props) => {
-  const {locations, city, onLocationClick} = props;
+const LocationList = () => {
+  const dispatch = useDispatch();
+  const {location} = useSelector((state) => state.PAGE);
+
+  const handleCityChange = useCallback((evt) => {
+    const currentCity = evt.target.innerText;
+    dispatch(setLocation(currentCity));
+  }, [location]);
 
   return (
-    <React.Fragment>
-      <ul className="locations__list tabs__list">
-        {locations.map((location, id) => (
-          <LocationItem
-            key={id}
-            location={location}
-            activeLocation={city}
-            onLocationClick={onLocationClick}
-          />
-        ))}
-      </ul>
-    </React.Fragment>
+    <ul className="locations__list tabs__list">
+      {Object.keys(CityList).map((city, id) => (
+        <LocationItem
+          city={city}
+          key={`${city}-${id}`}
+          onLocationClick={handleCityChange}
+        />
+      ))}
+    </ul>
   );
 };
 
-LocationList.propTypes = {
-  locations: PropTypes.arrayOf(cityType),
-  city: PropTypes.string.isRequired,
-  onLocationClick: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  city: state.city,
-  locations: state.cities
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLocationClick(city) {
-    dispatch(ActionCreator.changeCity(city));
-  },
-});
-
-export {LocationList};
-export default connect(mapStateToProps, mapDispatchToProps)(LocationList);
+export default LocationList;

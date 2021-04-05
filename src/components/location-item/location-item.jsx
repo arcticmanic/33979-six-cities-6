@@ -1,29 +1,22 @@
-import React from 'react';
+import React, {memo} from 'react';
+import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
-const getClassName = (location, activeLocation) => {
-  const baseName = `locations__item-link tabs__item`;
+const LocationItem = ({city, onLocationClick}) => {
+  const {location: currentCity} = useSelector((state) => state.PAGE);
 
-  return `${baseName} ${location === activeLocation ? `tabs__item--active` : ``}`;
-};
-
-const LocationItem = ({location, activeLocation, onLocationClick}) => {
   return (
     <li className="locations__item">
-      <a className={getClassName(location, activeLocation)} href="#" onClick={(evt) => {
-        evt.preventDefault();
-        onLocationClick(location);
-      }}>
-        <span>{location}</span>
+      <a className={`locations__item-link tabs__item ${currentCity === city ? `tabs__item--active` : ``}`} href="#" onClick={onLocationClick}>
+        <span>{city}</span>
       </a>
     </li>
   );
 };
 
 LocationItem.propTypes = {
-  location: PropTypes.string.isRequired,
-  activeLocation: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
   onLocationClick: PropTypes.func.isRequired,
 };
 
-export default LocationItem;
+export default memo(LocationItem);
