@@ -92,7 +92,7 @@ describe(`Test routing`, () => {
           DATA: {
             isOffersLoaded: true,
             isFavoriteOffersLoaded: true,
-            offers: []
+            favoriteOffers: []
           },
         })}>
           <Router history={history}>
@@ -162,7 +162,7 @@ describe(`Test routing`, () => {
           </Router>
         </redux.Provider>
     );
-    expect(screen.getByText(/To bookmarks/i)).toBeInTheDocument();
+    expect(screen.getByText(/Beautiful & luxurious studio at great location/i)).toBeInTheDocument();
   });
 
   it(`Render NotFoundPage component correctly when user navigate to no exist page`, () => {

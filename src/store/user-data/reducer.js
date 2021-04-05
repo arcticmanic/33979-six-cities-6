@@ -2,7 +2,7 @@ import {AuthorizationStatus} from '../../const';
 import {createReducer} from '@reduxjs/toolkit';
 import {requireAuthorization, setUserAvatar, setUserInfo, setUserName} from './actions';
 
-const initialState = {
+export const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   login: ``,
   userAvatar: ``

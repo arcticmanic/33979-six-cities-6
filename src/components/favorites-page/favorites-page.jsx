@@ -9,18 +9,18 @@ import Spinner from '../loading/loading';
 
 const FavoritesPage = () => {
   const dispatch = useDispatch();
-  const {offers} = useSelector((state) => state.DATA);
+  const {favoriteOffers} = useSelector((state) => state.DATA);
   const {isFavoriteOffersLoaded} = useSelector((state) => state.DATA);
 
   useEffect(() => {
     dispatch(fetchFavoriteOffers());
-  }, [offers]);
+  }, [favoriteOffers]);
 
   if (!isFavoriteOffersLoaded) {
     return <Spinner />;
   }
 
-  const favoritesOffers = offers.filter((offer) => (offer.is_favorite));
+  const favoritesOffers = favoriteOffers.filter((offer) => (offer.is_favorite));
 
   return (
     <div className="page">

@@ -2,13 +2,11 @@ import {changeFavoriteStatus, changeFetchStatus, getOffers, getFavoriteOffers} f
 import {createReducer} from '@reduxjs/toolkit';
 import {FetchStatus} from '../../const';
 
-const initialState = {
+export const initialState = {
   offers: [],
   isOffersLoaded: false,
   favoriteOffers: [],
   isFavoriteOffersLoaded: false,
-  currentOffer: null,
-  isOfferLoaded: false,
   isFavoriteStatusChanged: true,
   fetchStatus: FetchStatus.PENDING
 };
