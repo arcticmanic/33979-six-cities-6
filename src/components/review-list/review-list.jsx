@@ -1,14 +1,17 @@
 import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
 import ReviewItem from '../review-item/review-item';
-import {reviewType} from '../../types';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Spinner from '../loading/loading';
 import {fetchCommentsList} from '../../store/api-actions.js';
+import {useParams} from 'react-router';
 
-const ReviewList = ({comments, isCommentsLoaded, onLoad, id}) => {
+const ReviewList = () => {
+  const {comments, isCommentsLoaded} = useSelector((state) => state.CURRENT_OFFER);
+  const dispatch = useDispatch();
+  const {id} = useParams();
+
   useEffect(() => {
-    onLoad(id);
+    dispatch(fetchCommentsList(id));
   }, [id]);
 
   if (!isCommentsLoaded) {
@@ -29,23 +32,4 @@ const ReviewList = ({comments, isCommentsLoaded, onLoad, id}) => {
   );
 };
 
-ReviewList.propTypes = {
-  comments: PropTypes.arrayOf(reviewType),
-  isCommentsLoaded: PropTypes.bool.isRequired,
-  onLoad: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired
-};
-
-const mapStateToProps = ({isCommentsLoaded, comments}) => ({
-  isCommentsLoaded,
-  comments
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoad(id) {
-    dispatch(fetchCommentsList(id));
-  }
-});
-
-export {ReviewList};
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewList);
+export default ReviewList;
