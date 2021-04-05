@@ -2,8 +2,8 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {useDispatch, useSelector} from 'react-redux';
 import {FetchStatus, CommentSettings} from '../../const';
-import {changeFetchStatus} from '../../store/action';
-import {sendComment} from '../../store/api-actions';
+import {changeFetchStatus} from '../../store/current-offer-data/actions';
+import {sendComment} from '../../store/current-offer-data/api-actions';
 import FormRating from '../form-rating/form-rating';
 import FormTextarea from '../form-textarea/form-textarea';
 

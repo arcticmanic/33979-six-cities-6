@@ -1,4 +1,4 @@
-import {changeFavoriteStatus, clearCurrentOffer, getComments, getCurrentOffer, getNearOffers} from '../action';
+import {changeFavoriteStatus, clearCurrentOffer, getComments, getCurrentOffer, getNearOffers} from './actions';
 import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {

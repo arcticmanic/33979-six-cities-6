@@ -1,8 +1,6 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import NotFoundPage from '../not-found-page/not-found-page';
-import {changeFetchStatus, clearCurrentOffer} from '../../store/action';
-import {fetchCurrentOffer, fetchNearOffers, sendFavoriteOfferScreenStatus} from '../../store/api-actions';
 import FormAddReview from '../form-add-review/form-add-review';
 import ReviewList from '../review-list/review-list';
 import Map from '../map/map';
@@ -15,24 +13,26 @@ import {useDispatch, useSelector} from 'react-redux';
 import {MapSize} from '../../const';
 import browserHistory from '../../browser-history';
 import {AuthorizationStatus, FetchStatus, RoutePath} from '../../const';
+import {fetchCurrentOffer, sendFavoriteStatus} from '../../store/current-offer-data/api-actions';
+import {changeFetchStatus, clearCurrentOffer} from '../../store/current-offer-data/actions';
 
 const PropertyPage = ({propertyId}) => {
-  const {currentOffer: offer, isOfferLoaded, nearOffers} = useSelector((state) => state.CURRENT_OFFER);
+  const {currentOffer: offer, nearOffers} = useSelector((state) => state.CURRENT_OFFER);
   const {authorizationStatus} = useSelector((state) => state.USER);
   const {fetchStatus} = useSelector((state) => state.DATA);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(changeFetchStatus(FetchStatus.SENDING));
     dispatch(fetchCurrentOffer(propertyId));
-    dispatch(fetchNearOffers(propertyId));
 
     return () => {
       dispatch(clearCurrentOffer());
     };
   }, [propertyId]);
 
-  if (!isOfferLoaded) {
+  if (fetchStatus === FetchStatus.SENDING) {
     return <Spinner />;
   }
 
@@ -66,7 +66,7 @@ const PropertyPage = ({propertyId}) => {
       browserHistory.push(RoutePath.LOGIN_PAGE);
     } else {
       const isFavoriteCard = Number(!isFavorite);
-      dispatch(sendFavoriteOfferScreenStatus(id, isFavoriteCard));
+      dispatch(sendFavoriteStatus(id, isFavoriteCard));
       dispatch(changeFetchStatus(FetchStatus.SENDING));
     }
   };

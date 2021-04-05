@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {offerType} from '../../types';
 import {useDispatch, useSelector} from 'react-redux';
-import {sendFavoriteStatus} from '../../store/api-actions';
-import {changeFetchStatus} from '../../store/action';
+import {sendFavoriteStatus} from '../../store/offers-data/api-actions';
+import {changeFetchStatus} from '../../store/offers-data/actions';
 import browserHistory from '../../browser-history';
 import {AuthorizationStatus, FetchStatus, RoutePath} from '../../const';
 

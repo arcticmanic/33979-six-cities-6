@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {setSort} from '../../store/action';
+import {setSort} from '../../store/page-data/actions';
 import {useDispatch} from 'react-redux';
 
 const SortItem = ({sortType}) => {

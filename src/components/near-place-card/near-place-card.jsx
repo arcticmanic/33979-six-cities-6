@@ -4,8 +4,8 @@ import {AuthorizationStatus, FetchStatus, RoutePath} from '../../const';
 import {offerType} from '../../types';
 import browserHistory from '../../browser-history';
 import {useDispatch, useSelector} from 'react-redux';
-import {changeFetchStatus} from '../../store/action';
-import {sendFavoriteStatus} from '../../store/api-actions';
+import {changeFetchStatus} from '../../store/current-offer-data/actions';
+import {sendFavoriteStatus} from '../../store/current-offer-data/api-actions';
 
 const NearPlaceCard = ({offer}) => {
   const {
