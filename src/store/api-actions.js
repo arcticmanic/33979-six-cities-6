@@ -1,49 +1,55 @@
-import {APIRoutePaths, RoutePaths, AuthorizationStatus} from "../const";
-import {ActionCreator} from "./action";
+import {APIRoutePath, RoutePath, AuthorizationStatus} from '../const';
+import {getCurrentOffer, getOffers, getNearOffers, setUserName, setUserInfo, requireAuthorization, redirect, getComments, setUserAvatar, changeFavoriteStatus} from './action';
 
 export const fetchOffers = () => (dispatch, _getState, api) => (
-  api.get(APIRoutePaths.HOTELS)
-    .then(({data}) => dispatch(ActionCreator.getOffers(data)))
+  api.get(APIRoutePath.HOTELS)
+    .then(({data}) => dispatch(getOffers(data)))
+);
+
+export const fetchCurrentOffer = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoutePath.HOTELS}/${id}`)
+    .then(({data}) => dispatch(getCurrentOffer(data)))
 );
 
 export const fetchNearOffers = (id) => (dispatch, _getState, api) => (
-  api.get(`${APIRoutePaths.HOTELS}/${id}/nearby`).
-    then(({data}) => dispatch(ActionCreator.getNearOffers(data)))
+  api.get(`${APIRoutePath.HOTELS}/${id}/nearby`).
+    then(({data}) => dispatch(getNearOffers(data)))
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
-  api.get(APIRoutePaths.LOGIN)
-    .then((response) => {
-      dispatch(ActionCreator.setUserName(response.data.email));
-      return response;
-    })
-    .then((response) => {
-      dispatch(ActionCreator.setUserAvatar(response.data[`avatar_url`]));
-    })
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .catch(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
+  api.get(APIRoutePath.LOGIN)
+    .then((response) => dispatch(setUserInfo(response.data.email, response.data[`avatar_url`])))
+    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+    .catch(() => dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)))
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
-  api.post(APIRoutePaths.LOGIN, {email, password})
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .then(() => dispatch(ActionCreator.setUserName(email)))
-    .then(() => dispatch(ActionCreator.redirect(RoutePaths.MAIN_PAGE)))
-    .catch(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
+  api.post(APIRoutePath.LOGIN, {email, password})
+    .then((response) => dispatch(setUserInfo(response.data.email, response.data[`avatar_url`])))
+    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => dispatch(redirect(RoutePath.MAIN_PAGE)))
+    .catch(() => dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)))
 );
 
 export const logout = () => (dispatch, _state, api) => {
-  api.get(APIRoutePaths.LOGOUT)
-    .then(() => dispatch(ActionCreator.setUserName(``)))
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)));
+  api.get(APIRoutePath.LOGOUT)
+    .then(() => dispatch(setUserName(``)))
+    .then(() => dispatch(setUserAvatar(``)))
+    .then(() => dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)));
 };
 
 export const fetchCommentsList = (id) => (dispatch, _state, api) => {
-  api.get(`${APIRoutePaths.COMMENTS}/${id}`)
-    .then(({data}) => dispatch(ActionCreator.getComments(data)));
+  api.get(`${APIRoutePath.COMMENTS}/${id}`)
+    .then(({data}) => dispatch(getComments(data)));
 };
 
 export const sendComment = (id, {commentText: comment, rating}) => (dispatch, _state, api) => {
-  api.post(`${APIRoutePaths.COMMENTS}/${id}`, {comment, rating})
-    .then(({data}) => dispatch(ActionCreator.getComments(data)));
+  api.post(`${APIRoutePath.COMMENTS}/${id}`, {comment, rating})
+    .then(({data}) => dispatch(getComments(data)));
+};
+
+export const sendFavoriteStatus = (id, favorite) => (dispatch, _state, api) => {
+  api.post(`${APIRoutePath.FAVORITE}/${id}/${favorite}`)
+    .then(({data}) => dispatch(changeFavoriteStatus(data)))
+    .catch(() => {});
 };

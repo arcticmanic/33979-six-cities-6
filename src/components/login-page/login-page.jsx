@@ -1,20 +1,29 @@
 import React, {useRef} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../store/api-actions';
 import Header from '../header/header';
+import {AuthorizationStatus, RoutePath} from '../../const';
+import {Redirect} from 'react-router';
 
-const LoginPage = ({onSubmit}) => {
+const LoginPage = () => {
   const loginRef = useRef();
   const passwordRef = useRef();
+  const {authorizationStatus} = useSelector((state) => state.USER);
+  const dispatch = useDispatch();
   const handleSubmit = (evt) => {
-    evt.preventDefault();
-    onSubmit({
+    evt.preventDefault({
       login: loginRef.current.value,
       password: passwordRef.current.value
     });
+    dispatch(login({
+      login: loginRef.current.value,
+      password: passwordRef.current.value
+    }));
   };
 
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
+    return <Redirect to={RoutePath.MAIN_PAGE} />;
+  }
 
   return (
     <div className="page page--gray page--login">
@@ -49,15 +58,4 @@ const LoginPage = ({onSubmit}) => {
   );
 };
 
-LoginPage.propTypes = {
-  onSubmit: PropTypes.func.isRequired
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(loginData) {
-    dispatch(login(loginData));
-  }
-});
-
-export {LoginPage};
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default LoginPage;

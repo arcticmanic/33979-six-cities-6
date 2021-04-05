@@ -1,10 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {reviewType} from '../../types';
-import {connect} from 'react-redux';
-import {offerType} from '../../types';
 import NotFoundPage from '../not-found-page/not-found-page';
-import {ActionCreator} from '../../store/action';
+import {clearCurrentOffer} from '../../store/action';
+import {fetchCurrentOffer, sendFavoriteStatus} from '../../store/api-actions';
 import FormAddReview from '../form-add-review/form-add-review';
 import ReviewList from '../review-list/review-list';
 import Map from '../map/map';
@@ -13,19 +11,31 @@ import UserProperty from '../user/user-property';
 import Header from '../header/header';
 import Spinner from '../loading/loading';
 import PrivateRoute from '../private-route/private-route';
+import {useDispatch, useSelector} from 'react-redux';
+import {MapSize} from '../../const';
+import browserHistory from '../../browser-history';
+import {AuthorizationStatus, RoutePath} from '../../const';
 
-const PropertyPage = (props) => {
-  const {offers, isOffersLoaded, propertyId, nearOffers, onLocationChange} = props;
-  const [activeCardId, setActiveCardId] = useState(null);
-  const MAP_SIZE = 579;
+const PropertyPage = ({propertyId}) => {
+  const {currentOffer: offer, isOfferLoaded, nearOffers} = useSelector((state) => state.CURRENT_OFFER);
+  const {authorizationStatus} = useSelector((state) => state.USER);
+  const {isFavoriteStatusChanged} = useSelector((state) => state.DATA);
 
-  if (!isOffersLoaded) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCurrentOffer(propertyId));
+
+    return () => {
+      dispatch(clearCurrentOffer());
+    };
+  }, [propertyId, isFavoriteStatusChanged]);
+
+  if (!isOfferLoaded) {
     return <Spinner />;
   }
 
-  const currentOffer = offers.find(({id}) => id === parseFloat(propertyId));
-
-  if (!currentOffer) {
+  if (!offer) {
     return <NotFoundPage />;
   }
 
@@ -33,30 +43,37 @@ const PropertyPage = (props) => {
     id,
     bedrooms,
     description,
-    city,
     goods,
-    host,
+    host: {
+      avatar_url: avatarUrl,
+      id: idHost,
+      is_pro: isPro,
+      name
+    },
     images,
     is_premium: isPremium,
+    is_favorite: isFavorite,
     max_adults: maxAdults,
     price,
     rating,
     title,
     type
-  } = currentOffer;
+  } = offer;
 
-  onLocationChange(city.name);
+  const handleFavoriteClick = () => {
+    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+      browserHistory.push(RoutePath.LOGIN_PAGE);
+    } else {
+      const isFavoriteCard = Number(!isFavorite);
+
+      dispatch(sendFavoriteStatus(id, isFavoriteCard));
+    }
+  };
 
   const propertyImages = images.slice(0, 6);
 
-  const {
-    avatar_url: avatarUrl,
-    id: idHost,
-    is_pro: isPro,
-    name
-  } = host;
-
-  const getNearCardId = (handleId) => setActiveCardId(handleId);
+  const nearPlacesMapOffers = nearOffers.slice();
+  nearPlacesMapOffers.push(offer);
 
   return (
     <div className="page">
@@ -83,7 +100,7 @@ const PropertyPage = (props) => {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`} type="button" onClick={handleFavoriteClick} disabled={!isFavoriteStatusChanged}>
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -145,14 +162,14 @@ const PropertyPage = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={nearOffers} height={MAP_SIZE} activeCardId={activeCardId} />
+            <Map offers={nearPlacesMapOffers} height={MapSize.PROPERTY} activeCardId={id} />
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <NearPlaceCardList cardId={id} onCursor={getNearCardId} />
+              <NearPlaceCardList offerId={id} />
             </div>
           </section>
         </div>
@@ -162,26 +179,7 @@ const PropertyPage = (props) => {
 };
 
 PropertyPage.propTypes = {
-  reviews: PropTypes.arrayOf(reviewType),
-  onReview: PropTypes.func.isRequired,
-  offers: PropTypes.arrayOf(offerType),
-  nearOffers: PropTypes.arrayOf(offerType),
-  isOffersLoaded: PropTypes.bool.isRequired,
   propertyId: PropTypes.string.isRequired,
-  onLocationChange: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({offers, isOffersLoaded, nearOffers}) => ({
-  offers,
-  isOffersLoaded,
-  nearOffers,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLocationChange(location) {
-    dispatch(ActionCreator.changeCity(location));
-  }
-});
-
-export {PropertyPage};
-export default connect(mapStateToProps, mapDispatchToProps)(PropertyPage);
+export default PropertyPage;

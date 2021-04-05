@@ -1,35 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ActionCreator} from '../../store/action';
-import {connect} from 'react-redux';
+import {setSort} from '../../store/action';
+import {useDispatch} from 'react-redux';
 
-const SortItem = ({sortType, handleSortChange}) => {
-  const {value, label} = sortType;
+const SortItem = ({sortType}) => {
+  const dispatch = useDispatch();
+
+  const handleSortChange = (evt) => {
+    const sort = evt.target.innerText;
+    dispatch(setSort(sort));
+  };
 
   return (
     <li
       className="places__option places__option--active"
       tabIndex="0"
       onClick={handleSortChange}
-      data-value={value}
     >
-      {label}
+      {sortType}
     </li>
   );
 };
 
 SortItem.propTypes = {
-  sortType: PropTypes.object.isRequired,
-  handleSortChange: PropTypes.func.isRequired,
+  sortType: PropTypes.string.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  handleSortChange(evt) {
-    const sortType = evt.target.dataset.value;
-    dispatch(ActionCreator.sortOffers(sortType));
-    dispatch(ActionCreator.setSort(sortType));
-  },
-});
-
-export {SortItem};
-export default connect(null, mapDispatchToProps)(SortItem);
+export default SortItem;
