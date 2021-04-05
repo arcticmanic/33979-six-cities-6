@@ -42,7 +42,8 @@ export const RoutePaths = {
 export const APIRoutePaths = {
   LOGIN: `/login`,
   LOGOUT: `/logout`,
-  HOTELS: `/hotels`
+  HOTELS: `/hotels`,
+  COMMENTS: `/comments`
 };
 
 export const AuthorizationStatus = {

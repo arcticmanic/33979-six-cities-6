@@ -37,3 +37,13 @@ export const logout = () => (dispatch, _state, api) => {
     .then(() => dispatch(ActionCreator.setUserName(``)))
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)));
 };
+
+export const fetchCommentsList = (id) => (dispatch, _state, api) => {
+  api.get(`${APIRoutePaths.COMMENTS}/${id}`)
+    .then(({data}) => dispatch(ActionCreator.getComments(data)));
+};
+
+export const sendComment = (id, {commentText: comment, rating}) => (dispatch, _state, api) => {
+  api.post(`${APIRoutePaths.COMMENTS}/${id}`, {comment, rating})
+    .then(({data}) => dispatch(ActionCreator.getComments(data)));
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route, Router} from 'react-router-dom';
+import {Switch, Route, Router, Redirect} from 'react-router-dom';
 import MainPage from '../main-page/main-page';
 import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorites-page';
@@ -20,7 +20,9 @@ const App = () => {
         <Route exact path={RoutePaths.MAIN_PAGE}>
           <MainPage />
         </Route>
-        <PrivateRoute path={RoutePaths.FAVORITES_PAGE} exact component={FavoritesPage} />
+        <Route path ={RoutePaths.FAVORITES_PAGE} exact>
+          <PrivateRoute component={() => <FavoritesPage />} noAuth={() => <Redirect to={RoutePaths.LOGIN_PAGE}/>} />
+        </Route>
         <Route path={RoutePaths.OFFER_PAGE} exact
           render={(routeProps) => {
             const propertyId = routeProps.match.params.id;
