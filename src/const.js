@@ -53,6 +53,18 @@ export const CityList = {
   Dusseldorf: `Dusseldorf`
 };
 
+export const CommentSettings = {
+  MIN_SIZE: 50,
+  MAX_SIZE: 300,
+};
+
+export const FetchStatus = {
+  PENDING: `PENDING`,
+  SENDING: `SENDING`,
+  DONE: `DONE`,
+  ERROR: `ERROR`
+};
+
 export const CityInfo = {
   Amsterdam: {
     name: `Amsterdam`,
@@ -107,3 +119,5 @@ export const CityInfo = {
 export const Colors = {
   SITE_BLUE: `#4481c3`
 };
+
+export const CLICK_TIMEOUT = 1000;

@@ -1,17 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import NearPlaceCard from "../near-place-card/near-place-card";
 import PropTypes from 'prop-types';
 import Spinner from '../loading/loading';
-import {useDispatch, useSelector} from 'react-redux';
-import {fetchNearOffers} from "../../store/api-actions";
+import {useSelector} from 'react-redux';
 
-const NearPlaceCardList = ({offerId}) => {
-  const dispatch = useDispatch();
+const NearPlaceCardList = () => {
   const {nearOffers: offers, isNearOffersLoaded} = useSelector((state) => state.CURRENT_OFFER);
-
-  useEffect(() => {
-    dispatch(fetchNearOffers(offerId));
-  }, [offerId]);
 
   if (!isNearOffersLoaded) {
     return <Spinner />;

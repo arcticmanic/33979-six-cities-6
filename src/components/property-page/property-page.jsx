@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import NotFoundPage from '../not-found-page/not-found-page';
-import {clearCurrentOffer} from '../../store/action';
-import {fetchCurrentOffer, sendFavoriteStatus} from '../../store/api-actions';
+import {changeFetchStatus, clearCurrentOffer} from '../../store/action';
+import {fetchCurrentOffer, fetchNearOffers, sendFavoriteOfferScreenStatus} from '../../store/api-actions';
 import FormAddReview from '../form-add-review/form-add-review';
 import ReviewList from '../review-list/review-list';
 import Map from '../map/map';
@@ -14,22 +14,23 @@ import PrivateRoute from '../private-route/private-route';
 import {useDispatch, useSelector} from 'react-redux';
 import {MapSize} from '../../const';
 import browserHistory from '../../browser-history';
-import {AuthorizationStatus, RoutePath} from '../../const';
+import {AuthorizationStatus, FetchStatus, RoutePath} from '../../const';
 
 const PropertyPage = ({propertyId}) => {
   const {currentOffer: offer, isOfferLoaded, nearOffers} = useSelector((state) => state.CURRENT_OFFER);
   const {authorizationStatus} = useSelector((state) => state.USER);
-  const {isFavoriteStatusChanged} = useSelector((state) => state.DATA);
+  const {fetchStatus} = useSelector((state) => state.DATA);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCurrentOffer(propertyId));
+    dispatch(fetchNearOffers(propertyId));
 
     return () => {
       dispatch(clearCurrentOffer());
     };
-  }, [propertyId, isFavoriteStatusChanged]);
+  }, [propertyId]);
 
   if (!isOfferLoaded) {
     return <Spinner />;
@@ -65,8 +66,8 @@ const PropertyPage = ({propertyId}) => {
       browserHistory.push(RoutePath.LOGIN_PAGE);
     } else {
       const isFavoriteCard = Number(!isFavorite);
-
-      dispatch(sendFavoriteStatus(id, isFavoriteCard));
+      dispatch(sendFavoriteOfferScreenStatus(id, isFavoriteCard));
+      dispatch(changeFetchStatus(FetchStatus.SENDING));
     }
   };
 
@@ -100,7 +101,12 @@ const PropertyPage = ({propertyId}) => {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`} type="button" onClick={handleFavoriteClick} disabled={!isFavoriteStatusChanged}>
+                <button
+                  className={`property__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`}
+                  type="button"
+                  onClick={handleFavoriteClick}
+                  disabled={fetchStatus === FetchStatus.SENDING}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>

@@ -1,4 +1,4 @@
-import {CityInfo} from "../const";
+import {CityInfo} from '../const';
 
 export const getCityNames = (offers) => {
   return offers.reduce((acc, offer) => {

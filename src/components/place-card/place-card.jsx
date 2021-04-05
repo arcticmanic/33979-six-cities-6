@@ -4,8 +4,9 @@ import {Link} from 'react-router-dom';
 import {offerType} from '../../types';
 import {useDispatch, useSelector} from 'react-redux';
 import {sendFavoriteStatus} from '../../store/api-actions';
+import {changeFetchStatus} from '../../store/action';
 import browserHistory from '../../browser-history';
-import {AuthorizationStatus, RoutePath} from '../../const';
+import {AuthorizationStatus, FetchStatus, RoutePath} from '../../const';
 
 const PlaceCard = ({offer, onCursorHandle}) => {
   const {
@@ -20,7 +21,7 @@ const PlaceCard = ({offer, onCursorHandle}) => {
   } = offer;
 
   const ratingInPercents = rating * 20 + `%`;
-  const {isFavoriteStatusChanged} = useSelector((state) => state.DATA);
+  const {fetchStatus} = useSelector((state) => state.DATA);
   const {authorizationStatus} = useSelector((state) => state.USER);
   const dispatch = useDispatch();
 
@@ -39,6 +40,7 @@ const PlaceCard = ({offer, onCursorHandle}) => {
       const isFavoriteCard = Number(!isFavorite);
 
       dispatch(sendFavoriteStatus(id, isFavoriteCard));
+      dispatch(changeFetchStatus(FetchStatus.SENDING));
     }
   };
 
@@ -60,7 +62,12 @@ const PlaceCard = ({offer, onCursorHandle}) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : `` } button`} onClick={handleFavoriteClick} type="button" disabled={!isFavoriteStatusChanged}>
+          <button
+            className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : `` } button`}
+            onClick={handleFavoriteClick}
+            type="button"
+            disabled={fetchStatus === FetchStatus.SENDING}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
