@@ -2,7 +2,7 @@ import {CityList, SortType} from '../../const';
 import {setLocation, setSort} from './actions';
 import {createReducer} from '@reduxjs/toolkit';
 
-const initialState = {
+export const initialState = {
   location: CityList.Paris,
   sort: SortType.POPULAR
 };

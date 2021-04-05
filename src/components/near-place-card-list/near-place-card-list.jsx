@@ -1,6 +1,5 @@
 import React from 'react';
-import NearPlaceCard from "../near-place-card/near-place-card";
-import PropTypes from 'prop-types';
+import NearPlaceCard from '../near-place-card/near-place-card';
 import Spinner from '../loading/loading';
 import {useSelector} from 'react-redux';
 
@@ -13,13 +12,12 @@ const NearPlaceCardList = () => {
 
   return (
     <React.Fragment>
-      {offers.map((offer, id) => <NearPlaceCard offer={offer} key={`${id}-nearOffer`} />)}
+      <h2 className="near-places__title">Other places in the neighbourhood</h2>
+      <div className="near-places__list places__list">
+        {offers.map((offer, id) => <NearPlaceCard offer={offer} key={`${id}-nearOffer`} />)}
+      </div>
     </React.Fragment>
   );
-};
-
-NearPlaceCardList.propTypes = {
-  offerId: PropTypes.number.isRequired,
 };
 
 export default NearPlaceCardList;

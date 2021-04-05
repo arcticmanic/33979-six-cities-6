@@ -1,7 +1,7 @@
 import {changeFavoriteStatus, clearCurrentOffer, getComments, getCurrentOffer, getNearOffers} from './actions';
 import {createReducer} from '@reduxjs/toolkit';
 
-const initialState = {
+export const initialState = {
   currentOffer: null,
   isOfferLoaded: false,
   nearOffers: [],
