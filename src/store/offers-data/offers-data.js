@@ -1,5 +1,6 @@
-import {changeFavoriteStatus, getOffers} from '../action';
+import {changeFavoriteStatus, changeFetchStatus, getOffers} from '../action';
 import {createReducer} from '@reduxjs/toolkit';
+import {FetchStatus} from "../../const";
 
 const initialState = {
   offers: [],
@@ -7,6 +8,7 @@ const initialState = {
   currentOffer: null,
   isOfferLoaded: false,
   isFavoriteStatusChanged: true,
+  fetchStatus: FetchStatus.PENDING
 };
 
 const newOffersList = (stateOffers, currentOffer) => {
@@ -25,6 +27,9 @@ const offersData = createReducer(initialState, (builder) => {
   builder.addCase(changeFavoriteStatus, (state, action) => {
     state.offers = newOffersList(state.offers, action.payload);
     state.isFavoriteStatusChanged = true;
+  });
+  builder.addCase(changeFetchStatus, (state, action) => {
+    state.fetchStatus = action.payload;
   });
 });
 

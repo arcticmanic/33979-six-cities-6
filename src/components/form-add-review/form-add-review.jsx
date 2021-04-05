@@ -1,6 +1,8 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {FetchStatus, CommentSettings} from '../../const';
+import {changeFetchStatus} from '../../store/action';
 import {sendComment} from '../../store/api-actions';
 import FormRating from '../form-rating/form-rating';
 import FormTextarea from '../form-textarea/form-textarea';
@@ -11,6 +13,19 @@ const FormAddReview = ({id}) => {
     rating: null,
     commentText: ``
   });
+
+  const {fetchStatus} = useSelector((state) => state.DATA);
+
+  useEffect(() => {
+    if (fetchStatus === FetchStatus.DONE) {
+      setComment({
+        rating: null,
+        commentText: ``
+      });
+    }
+  }, [fetchStatus]);
+
+  const isFormDisabled = (comment.rating === null || comment.commentText === `` || fetchStatus === FetchStatus.SENDING || comment.commentText.length <= CommentSettings.MIN_SIZE);
 
   const handleRatingChange = useCallback((evt) => {
     const value = parseFloat(evt.target.value);
@@ -32,16 +47,12 @@ const FormAddReview = ({id}) => {
 
   const handleCommentSubmit = (evt) => {
     evt.preventDefault();
+    dispatch(changeFetchStatus(FetchStatus.SENDING));
     dispatch(sendComment(id, comment));
-    setComment((prevState) => ({
-      ...prevState,
-      commentText: ``,
-      rating: null
-    }));
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleCommentSubmit} ref={commentForm}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleCommentSubmit} ref={commentForm} disabled={isFormDisabled}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <FormRating rating={comment.rating} handleRatingChange={handleRatingChange}/>
       <FormTextarea value={comment.commentText} handleCommentChange={handleCommentChange}/>
@@ -49,7 +60,8 @@ const FormAddReview = ({id}) => {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={false}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isFormDisabled} >Submit</button>
+        {fetchStatus === FetchStatus.ERROR ? <span className="review-error">ERROR</span> : ``}
       </div>
     </form>
   );
