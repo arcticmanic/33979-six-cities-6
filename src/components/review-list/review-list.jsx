@@ -1,22 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import ReviewItem from '../review-item/review-item';
-import {useDispatch, useSelector} from 'react-redux';
-import Spinner from '../loading/loading';
-import {fetchCommentsList} from '../../store/api-actions.js';
-import {useParams} from 'react-router';
+import {useSelector} from 'react-redux';
 
 const ReviewList = () => {
-  const {comments, isCommentsLoaded} = useSelector((state) => state.CURRENT_OFFER);
-  const dispatch = useDispatch();
-  const {id} = useParams();
-
-  useEffect(() => {
-    dispatch(fetchCommentsList(id));
-  }, [id]);
-
-  if (!isCommentsLoaded) {
-    return <Spinner />;
-  }
+  const {comments} = useSelector((state) => state.CURRENT_OFFER);
 
   return (
     <React.Fragment>

@@ -2,9 +2,9 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {FetchStatus} from '../../const.js';
-import {changeFetchStatus} from '../../store/action.js';
+import {changeFetchStatus} from '../../store/current-offer-data/actions.js';
+import {sendFavoriteStatus} from '../../store/current-offer-data/api-actions.js';
 import {offerType} from '../../types';
-import {sendFavoriteStatus} from '../../store/api-actions.js';
 
 const FavoritesOffer = ({offer}) => {
   const {preview_image: previewImage, is_premium: isPremium, is_favorite: isFavorite, price, title, type, rating, id} = offer;

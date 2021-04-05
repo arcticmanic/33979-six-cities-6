@@ -1,12 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
 import FavoritesList from '../favorites-list/favorites-list';
 import Footer from '../footer/footer';
 import Header from '../header/header';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchFavoriteOffers} from '../../store/offers-data/api-actions';
+import Spinner from '../loading/loading';
 
 const FavoritesPage = () => {
+  const dispatch = useDispatch();
   const {offers} = useSelector((state) => state.DATA);
+  const {isFavoriteOffersLoaded} = useSelector((state) => state.DATA);
+
+  useEffect(() => {
+    dispatch(fetchFavoriteOffers());
+  }, [offers]);
+
+  if (!isFavoriteOffersLoaded) {
+    return <Spinner />;
+  }
+
   const favoritesOffers = offers.filter((offer) => (offer.is_favorite));
 
   return (

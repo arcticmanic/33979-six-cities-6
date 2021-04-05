@@ -1,16 +1,17 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import LocationItem from '../location-item/location-item';
 import {CityList} from '../../const';
-import {useDispatch} from 'react-redux';
-import {setLocation} from '../../store/action';
+import {useDispatch, useSelector} from 'react-redux';
+import {setLocation} from '../../store/page-data/actions';
 
 const LocationList = () => {
   const dispatch = useDispatch();
+  const {location} = useSelector((state) => state.PAGE);
 
-  const handleCityChange = (evt) => {
+  const handleCityChange = useCallback((evt) => {
     const currentCity = evt.target.innerText;
     dispatch(setLocation(currentCity));
-  };
+  }, [location]);
 
   return (
     <ul className="locations__list tabs__list">

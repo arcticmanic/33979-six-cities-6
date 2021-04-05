@@ -1,0 +1,37 @@
+import {createAction} from '@reduxjs/toolkit';
+
+export const ActionType = {
+  REQUIRE_AUTHORIZATION: `user/requireAuthorization`,
+  CHANGE_USERNAME: `user/changeName`,
+  SET_USER_AVATAR: `user/changeAvatar`,
+  SET_USER_INFO: `user/changeUserInfo`,
+  CHANGE_FETCH_STATUS: `data/changeFetchStatus`,
+  REDIRECT: `page/redirect`
+};
+
+export const requireAuthorization = createAction(ActionType.REQUIRE_AUTHORIZATION, (status) => ({
+  payload: status
+}));
+
+export const setUserName = createAction(ActionType.CHANGE_USERNAME, (userName) => ({
+  payload: userName
+}));
+
+export const setUserInfo = createAction(ActionType.SET_USER_INFO, (userName, userAvatar) => ({
+  payload: {
+    userName,
+    userAvatar
+  }
+}));
+
+export const setUserAvatar = createAction(ActionType.SET_USER_AVATAR, (url) => ({
+  payload: url
+}));
+
+export const changeFetchStatus = createAction(ActionType.CHANGE_FETCH_STATUS, (fetchStatus) => ({
+  payload: fetchStatus
+}));
+
+export const redirect = createAction(ActionType.REDIRECT, (url) => ({
+  payload: url
+}));
