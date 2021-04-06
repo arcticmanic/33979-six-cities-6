@@ -22,7 +22,7 @@ exports[`FavoritesPlace component render correctly 1`] = `
           alt="Place image"
           class="place-card__image"
           height="110"
-          src="https://assets.htmlacademy.ru/intensives/javascript-3/hotel/16.jpg"
+          src=""
           width="150"
         />
       </a>
@@ -89,9 +89,7 @@ exports[`FavoritesPlace component render correctly 1`] = `
       >
         <a
           href="/offer/1"
-        >
-          The house among olive 
-        </a>
+        />
       </h2>
       <p
         class="place-card__type"

@@ -12,6 +12,7 @@ export const Test = ({children, pushUrl}) => {
   const mockStore = configureStore({});
   const store = mockStore(notEmptyStore);
   const history = createMemoryHistory();
+
   if (pushUrl) {
     history.push(pushUrl);
   }
@@ -28,6 +29,6 @@ export const Test = ({children, pushUrl}) => {
 };
 
 Test.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.arrayOf(PropTypes.object)]).isRequired,
+  children: PropTypes.element.isRequired,
   pushUrl: PropTypes.string
 };

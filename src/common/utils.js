@@ -6,7 +6,7 @@ export const getCityNames = (offers) => {
   }, []);
 };
 
-export const getCityFiltredPlaces = (offers) => {
+export const getCityFilteredPlaces = (offers) => {
   const cities = Object.keys(CityInfo);
 
   return cities.reduce((acc, city) => {

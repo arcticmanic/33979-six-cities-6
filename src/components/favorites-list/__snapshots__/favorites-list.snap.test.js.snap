@@ -48,7 +48,7 @@ exports[`FavoritesList component render correctly 1`] = `
                   alt="Place image"
                   class="place-card__image"
                   height="110"
-                  src="https://assets.htmlacademy.ru/intensives/javascript-3/hotel/10.jpg"
+                  src=""
                   width="150"
                 />
               </a>
@@ -115,9 +115,7 @@ exports[`FavoritesList component render correctly 1`] = `
               >
                 <a
                   href="/offer/5"
-                >
-                  The Joshua Tree House
-                </a>
+                />
               </h2>
               <p
                 class="place-card__type"
@@ -139,7 +137,7 @@ exports[`FavoritesList component render correctly 1`] = `
                   alt="Place image"
                   class="place-card__image"
                   height="110"
-                  src="https://assets.htmlacademy.ru/intensives/javascript-3/hotel/8.jpg"
+                  src=""
                   width="150"
                 />
               </a>
@@ -206,9 +204,7 @@ exports[`FavoritesList component render correctly 1`] = `
               >
                 <a
                   href="/offer/11"
-                >
-                  Canal View Prinsengracht
-                </a>
+                />
               </h2>
               <p
                 class="place-card__type"
@@ -254,7 +250,7 @@ exports[`FavoritesList component render correctly 1`] = `
                   alt="Place image"
                   class="place-card__image"
                   height="110"
-                  src="https://assets.htmlacademy.ru/intensives/javascript-3/hotel/18.jpg"
+                  src=""
                   width="150"
                 />
               </a>
@@ -321,9 +317,7 @@ exports[`FavoritesList component render correctly 1`] = `
               >
                 <a
                   href="/offer/2"
-                >
-                  Waterfront with extraordinary view
-                </a>
+                />
               </h2>
               <p
                 class="place-card__type"
@@ -345,7 +339,7 @@ exports[`FavoritesList component render correctly 1`] = `
                   alt="Place image"
                   class="place-card__image"
                   height="110"
-                  src="https://assets.htmlacademy.ru/intensives/javascript-3/hotel/13.jpg"
+                  src=""
                   width="150"
                 />
               </a>
@@ -412,9 +406,7 @@ exports[`FavoritesList component render correctly 1`] = `
               >
                 <a
                   href="/offer/4"
-                >
-                  The house among olive 
-                </a>
+                />
               </h2>
               <p
                 class="place-card__type"
@@ -436,7 +428,7 @@ exports[`FavoritesList component render correctly 1`] = `
                   alt="Place image"
                   class="place-card__image"
                   height="110"
-                  src="https://assets.htmlacademy.ru/intensives/javascript-3/hotel/13.jpg"
+                  src=""
                   width="150"
                 />
               </a>
@@ -503,9 +495,7 @@ exports[`FavoritesList component render correctly 1`] = `
               >
                 <a
                   href="/offer/6"
-                >
-                  Penthouse, 4-5 rooms + 5 balconies
-                </a>
+                />
               </h2>
               <p
                 class="place-card__type"
@@ -558,7 +548,7 @@ exports[`FavoritesList component render correctly 1`] = `
                   alt="Place image"
                   class="place-card__image"
                   height="110"
-                  src="https://assets.htmlacademy.ru/intensives/javascript-3/hotel/14.jpg"
+                  src=""
                   width="150"
                 />
               </a>
@@ -625,9 +615,7 @@ exports[`FavoritesList component render correctly 1`] = `
               >
                 <a
                   href="/offer/3"
-                >
-                  Penthouse, 4-5 rooms + 5 balconies
-                </a>
+                />
               </h2>
               <p
                 class="place-card__type"
@@ -649,7 +637,7 @@ exports[`FavoritesList component render correctly 1`] = `
                   alt="Place image"
                   class="place-card__image"
                   height="110"
-                  src="https://assets.htmlacademy.ru/intensives/javascript-3/hotel/9.jpg"
+                  src=""
                   width="150"
                 />
               </a>
@@ -716,9 +704,7 @@ exports[`FavoritesList component render correctly 1`] = `
               >
                 <a
                   href="/offer/8"
-                >
-                  The Joshua Tree House
-                </a>
+                />
               </h2>
               <p
                 class="place-card__type"
@@ -764,7 +750,7 @@ exports[`FavoritesList component render correctly 1`] = `
                   alt="Place image"
                   class="place-card__image"
                   height="110"
-                  src="https://assets.htmlacademy.ru/intensives/javascript-3/hotel/11.jpg"
+                  src=""
                   width="150"
                 />
               </a>
@@ -831,9 +817,7 @@ exports[`FavoritesList component render correctly 1`] = `
               >
                 <a
                   href="/offer/7"
-                >
-                  Nice, cozy, warm big bed apartment
-                </a>
+                />
               </h2>
               <p
                 class="place-card__type"
@@ -879,7 +863,7 @@ exports[`FavoritesList component render correctly 1`] = `
                   alt="Place image"
                   class="place-card__image"
                   height="110"
-                  src="https://assets.htmlacademy.ru/intensives/javascript-3/hotel/10.jpg"
+                  src=""
                   width="150"
                 />
               </a>
@@ -946,9 +930,7 @@ exports[`FavoritesList component render correctly 1`] = `
               >
                 <a
                   href="/offer/9"
-                >
-                  Penthouse, 4-5 rooms + 5 balconies
-                </a>
+                />
               </h2>
               <p
                 class="place-card__type"
@@ -970,7 +952,7 @@ exports[`FavoritesList component render correctly 1`] = `
                   alt="Place image"
                   class="place-card__image"
                   height="110"
-                  src="https://assets.htmlacademy.ru/intensives/javascript-3/hotel/8.jpg"
+                  src=""
                   width="150"
                 />
               </a>
@@ -1037,9 +1019,7 @@ exports[`FavoritesList component render correctly 1`] = `
               >
                 <a
                   href="/offer/10"
-                >
-                  Amazing and Extremely Central Flat
-                </a>
+                />
               </h2>
               <p
                 class="place-card__type"
@@ -1092,7 +1072,7 @@ exports[`FavoritesList component render correctly 1`] = `
                   alt="Place image"
                   class="place-card__image"
                   height="110"
-                  src="https://assets.htmlacademy.ru/intensives/javascript-3/hotel/16.jpg"
+                  src=""
                   width="150"
                 />
               </a>
@@ -1159,9 +1139,7 @@ exports[`FavoritesList component render correctly 1`] = `
               >
                 <a
                   href="/offer/1"
-                >
-                  The house among olive 
-                </a>
+                />
               </h2>
               <p
                 class="place-card__type"

@@ -1,11 +1,11 @@
 import React from 'react';
 import FavoritesItem from '../favorites-item/favorites-item';
-import {getCityNames, getCityFiltredPlaces} from '../../common/utils';
+import {getCityNames, getCityFilteredPlaces} from '../../common/utils';
 import PropTypes from 'prop-types';
 import {offerType} from '../../types/types';
 
 const FavoritesList = ({favoritesOffers}) => {
-  const favoriteLocationsOffers = getCityFiltredPlaces(favoritesOffers);
+  const favoriteLocationsOffers = getCityFilteredPlaces(favoritesOffers);
   const favoritesCities = [...new Set(getCityNames(favoritesOffers))].sort();
 
   return (

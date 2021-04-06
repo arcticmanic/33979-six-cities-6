@@ -14,7 +14,8 @@ const NearPlaceCardList = () => {
     <React.Fragment>
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
-        {offers.map((offer, id) => <NearPlaceCard offer={offer} key={`nearOffer-${id}`} />)}
+
+        {offers.map((offer) => <NearPlaceCard offer={offer} key={`nearOffer-${offer.id}`} />)}
       </div>
     </React.Fragment>
   );
