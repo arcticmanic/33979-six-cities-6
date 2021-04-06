@@ -2,7 +2,7 @@ import React from 'react';
 import FavoritesItem from '../favorites-item/favorites-item';
 import {getCityNames, getCityFiltredPlaces} from '../../common/utils';
 import PropTypes from 'prop-types';
-import {offerType} from '../../types';
+import {offerType} from '../../types/types';
 
 const FavoritesList = ({favoritesOffers}) => {
   const favoriteLocationsOffers = getCityFiltredPlaces(favoritesOffers);

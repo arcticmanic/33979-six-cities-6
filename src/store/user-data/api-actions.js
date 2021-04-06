@@ -14,7 +14,6 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     .then((response) => dispatch(setUserInfo(response.data.email, response.data[`avatar_url`])))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirect(RoutePath.MAIN_PAGE)))
-    .catch(() => dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)))
 );
 
 export const logout = () => (dispatch, _state, api) => (

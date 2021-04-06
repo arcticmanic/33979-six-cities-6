@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {offerType} from '../../types';
+import {offerType} from '../../types/types';
 import {useDispatch, useSelector} from 'react-redux';
 import {sendFavoriteStatus} from '../../store/offers-data/api-actions';
 import {changeFetchStatus} from '../../store/offers-data/actions';

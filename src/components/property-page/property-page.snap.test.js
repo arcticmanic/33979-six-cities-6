@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from '@testing-library/react';
-import {Test} from '../../test/test-mock';
+import {Test} from '../../components/test/test-mock';
 import PropertyPage from './property-page';
 
 test(`PropertyPage component render correctly`, () => {

@@ -1,5 +1,10 @@
 import {SortType} from '../../const';
 import {sortOffersPopular, sortOffersPriceToHight, sortOffersPriceToLow, sortOffersRate} from '../../common/utils';
+import {createSelector} from 'reselect';
+
+const getOffers = (state) => state.DATA.offers;
+const getLocation = (state) => state.PAGE.location;
+const getSortType = (state) => state.PAGE.sort;
 
 export const getCurrentCityOffers = (offersList, location, sort) => {
   const filtredOffers = offersList.filter((offer) => offer.city.name === location);
@@ -16,3 +21,5 @@ export const getCurrentCityOffers = (offersList, location, sort) => {
       return filtredOffers;
   }
 };
+
+export const getCurrentCityOffersSelector = createSelector(getOffers, getLocation, getSortType, getCurrentCityOffers);

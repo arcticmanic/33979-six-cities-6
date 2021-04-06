@@ -1,9 +1,9 @@
-import {CityList, SortType} from '../../const';
+import {CityInfo, SortType} from '../../const';
 import {setLocation, setSort} from './actions';
 import {createReducer} from '@reduxjs/toolkit';
 
 export const initialState = {
-  location: CityList.Paris,
+  location: CityInfo.Paris.name,
   sort: SortType.POPULAR
 };
 

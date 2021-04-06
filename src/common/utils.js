@@ -1,4 +1,4 @@
-import {CityInfo} from '../const';
+import {CityInfo, CommentSettings} from '../const';
 
 export const getCityNames = (offers) => {
   return offers.reduce((acc, offer) => {
@@ -36,11 +36,11 @@ export const sortCommentsByTime = (commentA, commentB) => (Date.parse(commentB.r
 export const getCurrentCityComments = (comments) => {
   const currentComments = comments.slice();
 
-  if (comments.length < 2) {
+  if (comments.length < CommentSettings.LOWER_THRESHOLD_COMMENTS_COUNT) {
     return currentComments;
-  } else if (comments.length < 11) {
+  } else if (comments.length < CommentSettings.HIGHER_THRESHOLD_COMMENTS_COUNT) {
     return currentComments.sort(sortCommentsByTime);
   } else {
-    return currentComments.sort(sortCommentsByTime).slice(0, 10);
+    return currentComments.sort(sortCommentsByTime).slice(0, CommentSettings.COMMENTS_PER_PAGE);
   }
 };

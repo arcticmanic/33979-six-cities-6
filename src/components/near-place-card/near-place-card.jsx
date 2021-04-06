@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {AuthorizationStatus, FetchStatus, RoutePath} from '../../const';
-import {offerType} from '../../types';
+import {offerType} from '../../types/types';
 import browserHistory from '../../browser-history';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeFetchStatus} from '../../store/current-offer-data/actions';

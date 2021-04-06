@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import {Test} from '../../test/test-mock';
+import {Test} from '../../components/test/test-mock';
 import User from './user';
 
 test(`User component render correctly`, () => {

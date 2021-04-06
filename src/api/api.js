@@ -1,16 +1,8 @@
 
 import axios from 'axios';
+import {HttpCode, REQUEST_TIMEOUT} from '../const';
 
 const BACKEND_URL = `https://6.react.pages.academy/six-cities`;
-
-const REQUEST_TIMEOUT = 5000;
-
-const HttpCode = {
-  UNAUTHORIZED: 401,
-  DATA_ERROR: 400,
-  AUTHORIZED: 200,
-  NOT_FOUND: 404
-};
 
 export const createApi = (onUnauthorized) => {
   const api = axios.create({

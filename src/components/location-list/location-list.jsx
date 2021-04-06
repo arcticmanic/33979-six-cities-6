@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import LocationItem from '../location-item/location-item';
-import {CityList} from '../../const';
+import {CityInfo} from '../../const';
 import {useDispatch, useSelector} from 'react-redux';
 import {setLocation} from '../../store/page-data/actions';
 
@@ -15,7 +15,7 @@ const LocationList = () => {
 
   return (
     <ul className="locations__list tabs__list">
-      {Object.keys(CityList).map((city, id) => (
+      {Object.keys(CityInfo).map((city, id) => (
         <LocationItem
           city={city}
           key={`${city}-${id}`}

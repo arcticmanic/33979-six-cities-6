@@ -44,18 +44,12 @@ export const AuthorizationStatus = {
   NO_AUTH: `NO_AUTH`,
 };
 
-export const CityList = {
-  Paris: `Paris`,
-  Cologne: `Cologne`,
-  Brussels: `Brussels`,
-  Amsterdam: `Amsterdam`,
-  Hamburg: `Hamburg`,
-  Dusseldorf: `Dusseldorf`
-};
-
 export const CommentSettings = {
   MIN_SIZE: 50,
   MAX_SIZE: 300,
+  LOWER_THRESHOLD_COMMENTS_COUNT: 2,
+  HIGHER_THRESHOLD_COMMENTS_COUNT: 11,
+  COMMENTS_PER_PAGE: 10
 };
 
 export const FetchStatus = {
@@ -121,3 +115,18 @@ export const Colors = {
 };
 
 export const CLICK_TIMEOUT = 1000;
+
+export const ErrorMessage = {
+  NO_CONNECTION: `Server is not available.`,
+  SIGN_IN_FAILURE: `Failed to login with this e-mail and password.`,
+  REVIEW_FAILURE: `Error occured while posting your review. Please try again later`
+};
+
+export const REQUEST_TIMEOUT = 5000;
+
+export const HttpCode = {
+  UNAUTHORIZED: 401,
+  DATA_ERROR: 400,
+  AUTHORIZED: 200,
+  NOT_FOUND: 404
+};

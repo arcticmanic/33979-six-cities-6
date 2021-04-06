@@ -11,7 +11,7 @@ export const initialState = {
   fetchStatus: FetchStatus.PENDING
 };
 
-const newOffersList = (stateOffers, currentOffer) => {
+const getNewOffersList = (stateOffers, currentOffer) => {
   const offerIndex = stateOffers.findIndex((offer) => offer.id === currentOffer.id);
   if (offerIndex === -1) {
     return stateOffers;
@@ -29,7 +29,7 @@ const offersData = createReducer(initialState, (builder) => {
     state.isFavoriteOffersLoaded = true;
   });
   builder.addCase(changeFavoriteStatus, (state, action) => {
-    state.offers = newOffersList(state.offers, action.payload);
+    state.offers = getNewOffersList(state.offers, action.payload);
   });
   builder.addCase(changeFetchStatus, (state, action) => {
     state.fetchStatus = action.payload;

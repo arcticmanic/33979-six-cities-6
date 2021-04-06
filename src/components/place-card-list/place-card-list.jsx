@@ -1,23 +1,16 @@
 import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
-import {createSelector} from 'reselect';
 import PlaceCard from '../place-card/place-card';
 import Sort from '../sort/sort';
 import Map from '../map/map';
 import NoPlaces from '../no-places/no-places';
-import {getCurrentCityOffers} from '../../store/offers-data/selectors';
+import {getCurrentCityOffersSelector} from '../../store/offers-data/selectors';
 import {MapSize} from '../../const';
 
 const PlaceCardList = () => {
   const [activeCardId, setActiveCardId] = useState(null);
   const {location: currentCity} = useSelector((state) => state.PAGE);
-  const rootState = useSelector((state) => state);
-
-  const getOffers = (state) => state.DATA.offers;
-  const getLocation = (state) => state.PAGE.location;
-  const getSortType = (state) => state.PAGE.sort;
-
-  const currentCityOffers = createSelector(getOffers, getLocation, getSortType, getCurrentCityOffers)(rootState);
+  const currentCityOffers = useSelector((state) => getCurrentCityOffersSelector(state));
 
   const countString = currentCityOffers === 1 ? `place` : `places`;
 

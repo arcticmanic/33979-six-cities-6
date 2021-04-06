@@ -1,21 +1,34 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../store/user-data/api-actions';
 import Header from '../header/header';
-import {AuthorizationStatus, RoutePath} from '../../const';
+import {AuthorizationStatus, RoutePath, HttpCode, ErrorMessage} from '../../const';
 import {Redirect} from 'react-router';
 
 const LoginPage = () => {
   const loginRef = useRef();
   const passwordRef = useRef();
   const {authorizationStatus} = useSelector((state) => state.USER);
+  const [errorMessage, setError] = useState(null);
+
   const dispatch = useDispatch();
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     dispatch(login({
       login: loginRef.current.value,
       password: passwordRef.current.value
-    }));
+    }))
+    .catch((error) => {
+      if (error.response
+          && (error.response.status === HttpCode.DATA_ERROR
+            || error.response.status === HttpCode.UNAUTHORIZED)
+      ) {
+        setError(ErrorMessage.SIGN_IN_FAILURE);
+      } else {
+        setError(ErrorMessage.NO_CONNECTION);
+      }
+    });
   };
 
   if (authorizationStatus === AuthorizationStatus.AUTH) {
@@ -30,6 +43,7 @@ const LoginPage = () => {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
+            {errorMessage && <p style={{color: `red`}}>{errorMessage}</p>}
             <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>

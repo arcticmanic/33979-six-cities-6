@@ -1,6 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import {reviewType} from '../../types';
+import {reviewType} from '../../types/types';
 import UserReview from '../user/user-review';
 
 const ReviewItem = ({review}) => {

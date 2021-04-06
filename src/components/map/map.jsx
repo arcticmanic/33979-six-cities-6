@@ -1,7 +1,7 @@
 import Leaflet from 'leaflet';
 import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
-import {offerType} from '../../types';
+import {offerType} from '../../types/types';
 import {CityInfo} from '../../const.js';
 import {useSelector} from 'react-redux';
 

@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import {render, screen} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import App from './app';
-import {AuthorizationStatus, CityList, FetchStatus, RoutePath} from '../../const';
+import {AuthorizationStatus, CityInfo, FetchStatus, RoutePath} from '../../const';
 import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorites-page';
 import PropertyPage from '../property-page/property-page';
@@ -50,7 +50,7 @@ describe(`Test routing`, () => {
             offers: []
           },
           PAGE: {
-            location: CityList.Amsterdam
+            location: CityInfo.Amsterdam.name
           },
           USER: {
             authorizationStatus: AuthorizationStatus.NO_AUTH

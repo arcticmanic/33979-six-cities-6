@@ -10,7 +10,7 @@ export const initialState = {
   isCommentsLoaded: false,
 };
 
-const newOfferList = (stateOffers, currentOffer) => {
+const getNewOfferList = (stateOffers, currentOffer) => {
   const offerIndex = stateOffers.findIndex((offer) => offer.id === currentOffer.id);
   if (offerIndex === -1) {
     return stateOffers;
@@ -32,7 +32,7 @@ const currentOfferData = createReducer(initialState, (builder) => {
     state.isCommentsLoaded = true;
   });
   builder.addCase(changeFavoriteStatus, (state, action) => {
-    state.nearOffers = newOfferList(state.nearOffers, action.payload);
+    state.nearOffers = getNewOfferList(state.nearOffers, action.payload);
   });
   builder.addCase(clearCurrentOffer, (state) => {
     state.currentOffer = null;

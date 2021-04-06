@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {useDispatch, useSelector} from 'react-redux';
-import {FetchStatus, CommentSettings} from '../../const';
+import {FetchStatus, CommentSettings, ErrorMessage} from '../../const';
 import {changeFetchStatus} from '../../store/current-offer-data/actions';
 import {sendComment} from '../../store/current-offer-data/api-actions';
 import FormRating from '../form-rating/form-rating';
@@ -13,6 +13,7 @@ const FormAddReview = ({id}) => {
     rating: null,
     commentText: ``
   });
+  const [isError, setErrorStatus] = useState(false);
 
   const {fetchStatus} = useSelector((state) => state.DATA);
 
@@ -48,7 +49,8 @@ const FormAddReview = ({id}) => {
   const handleCommentSubmit = (evt) => {
     evt.preventDefault();
     dispatch(changeFetchStatus(FetchStatus.SENDING));
-    dispatch(sendComment(id, comment));
+    dispatch(sendComment(id, comment))
+      .catch(() => setErrorStatus(true));
   };
 
   return (
@@ -58,6 +60,7 @@ const FormAddReview = ({id}) => {
       <FormTextarea value={comment.commentText} handleCommentChange={handleCommentChange}/>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
+          {isError && <span style={{color: `red`}}>{ErrorMessage.REVIEW_FAILURE}<br /><br /></span>}
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button className="reviews__submit form__submit button" type="submit" disabled={isFormDisabled} >Submit</button>
