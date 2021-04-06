@@ -2,7 +2,7 @@ import React from 'react';
 import {render, screen} from '@testing-library/react';
 import {Test} from '../../components/test/test-mock';
 import NearPlaceCard from './near-place-card';
-import {notEmptyStore} from '../../test/test-store';
+import {notEmptyStore} from '../../components/test/test-store';
 
 test(`NearPlaceCard component render correctly`, () => {
   render(

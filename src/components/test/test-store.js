@@ -1,8 +1,8 @@
-import {initialState as userData} from '../store/user-data/reducer';
-import {initialState as pageData} from '../store/page-data/reducer';
-import {initialState as offersData} from '../store/offers-data/reducer';
-import {initialState as currentOfferData} from '../store/current-offer-data/reducer';
-import {AuthorizationStatus, CityInfo, FetchStatus, SortType} from '../const';
+import {initialState as userData} from '../../store/user-data/reducer';
+import {initialState as pageData} from '../../store/page-data/reducer';
+import {initialState as offersData} from '../../store/offers-data/reducer';
+import {initialState as currentOfferData} from '../../store/current-offer-data/reducer';
+import {AuthorizationStatus, CityInfo, FetchStatus, SortType} from '../../const';
 
 export const notEmptyStore = {
   DATA: {

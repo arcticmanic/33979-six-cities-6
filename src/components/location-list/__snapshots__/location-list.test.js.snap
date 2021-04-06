@@ -9,6 +9,18 @@ exports[`Location List component render correctly 1`] = `
       class="locations__item"
     >
       <a
+        class="locations__item-link tabs__item "
+        href="#"
+      >
+        <span>
+          Amsterdam
+        </span>
+      </a>
+    </li>
+    <li
+      class="locations__item"
+    >
+      <a
         class="locations__item-link tabs__item tabs__item--active"
         href="#"
       >
@@ -38,18 +50,6 @@ exports[`Location List component render correctly 1`] = `
       >
         <span>
           Brussels
-        </span>
-      </a>
-    </li>
-    <li
-      class="locations__item"
-    >
-      <a
-        class="locations__item-link tabs__item "
-        href="#"
-      >
-        <span>
-          Amsterdam
         </span>
       </a>
     </li>
