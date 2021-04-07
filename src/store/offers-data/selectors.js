@@ -5,21 +5,30 @@ import {createSelector} from 'reselect';
 const getOffers = (state) => state.DATA.offers;
 const getLocation = (state) => state.PAGE.location;
 const getSortType = (state) => state.PAGE.sort;
+const getFavoriteOffers = (state) => state.DATA.favoriteOffers;
 
 export const getCurrentCityOffers = (offersList, location, sort) => {
-  const filtredOffers = offersList.filter((offer) => offer.city.name === location);
+  const filteredOffers = offersList.filter((offer) => offer.city.name === location);
   switch (sort) {
     case SortType.POPULAR:
-      return filtredOffers.sort(sortOffersPopular);
+      return filteredOffers.sort(sortOffersPopular);
     case SortType.PRICE_HIGH_TO_LOW:
-      return filtredOffers.sort(sortOffersPriceToLow);
+      return filteredOffers.sort(sortOffersPriceToLow);
     case SortType.PRICE_LOW_TO_HIGH:
-      return filtredOffers.sort(sortOffersPriceToHight);
+      return filteredOffers.sort(sortOffersPriceToHight);
     case SortType.TOP_RATED_FIRST:
-      return filtredOffers.sort(sortOffersRate);
+      return filteredOffers.sort(sortOffersRate);
     default:
-      return filtredOffers;
+      return filteredOffers;
   }
 };
 
+export const getCityNames = (offers) => {
+  return offers.reduce((acc, offer) => {
+    return [...acc, offer.city.name];
+  }, []);
+};
+
 export const getCurrentCityOffersSelector = createSelector(getOffers, getLocation, getSortType, getCurrentCityOffers);
+
+export const getCityNamesSelector = createSelector(getFavoriteOffers, getCityNames);

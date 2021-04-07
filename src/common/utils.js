@@ -1,11 +1,5 @@
 import {CityInfo, CommentSettings} from '../const';
 
-export const getCityNames = (offers) => {
-  return offers.reduce((acc, offer) => {
-    return [...acc, offer.city.name];
-  }, []);
-};
-
 export const getCityFilteredPlaces = (offers) => {
   const cities = Object.keys(CityInfo);
 
