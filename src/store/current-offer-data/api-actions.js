@@ -1,6 +1,5 @@
-import {APIRoutePath, FetchStatus, ErrorMessage, HttpCode} from '../../const';
+import {APIRoutePath, FetchStatus} from '../../const';
 import {getCurrentOffer, setLocation, getNearOffers, getComments, changeFetchStatus, changeFavoriteStatus} from './actions';
-import {notify} from '../../common/utils';
 
 export const fetchCurrentOffer = (id) => (dispatch, _getState, api) => (
   Promise.all([
@@ -15,34 +14,14 @@ export const fetchCurrentOffer = (id) => (dispatch, _getState, api) => (
     dispatch(getComments(comments.data));
   })
   .then(() => dispatch(changeFetchStatus(FetchStatus.DONE)))
-  .catch((error) => {
-    dispatch(changeFetchStatus(FetchStatus.ERROR));
-
-    if (error.response.status === HttpCode.DATA_ERROR) {
-      notify(ErrorMessage.NO_CONNECTION);
-    }
-
-    if (error.response.status === HttpCode.NOT_FOUND) {
-      notify(ErrorMessage.NO_CONNECTION);
-    }
-  })
+  .catch(() => dispatch(changeFetchStatus(FetchStatus.ERROR)))
 );
 
 export const sendComment = (id, {commentText: comment, rating}) => (dispatch, _state, api) => (
   api.post(`${APIRoutePath.COMMENTS}/${id}`, {comment, rating})
     .then(({data}) => dispatch(getComments(data)))
     .then(() => dispatch(changeFetchStatus(FetchStatus.DONE)))
-    .catch((error) => {
-      dispatch(changeFetchStatus(FetchStatus.ERROR));
-
-      if (error.response.status === HttpCode.DATA_ERROR) {
-        notify(ErrorMessage.NO_CONNECTION);
-      }
-
-      if (error.response.status === HttpCode.NOT_FOUND) {
-        notify(ErrorMessage.NO_CONNECTION);
-      }
-    })
+    .catch(() => dispatch(changeFetchStatus(FetchStatus.ERROR)))
     .finally(() => setTimeout(() => (dispatch(changeFetchStatus(FetchStatus.PENDING))), 5000))
 );
 

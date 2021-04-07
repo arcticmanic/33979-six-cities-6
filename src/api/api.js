@@ -1,6 +1,7 @@
 
 import axios from 'axios';
-import {HttpCode, REQUEST_TIMEOUT} from '../const';
+import {HttpCode, ErrorMessage, REQUEST_TIMEOUT} from '../const';
+import {notify} from '../common/utils';
 
 const BACKEND_URL = `https://6.react.pages.academy/six-cities`;
 
@@ -21,6 +22,15 @@ export const createApi = (onUnauthorized) => {
 
       throw err;
     }
+
+    if (response.status === HttpCode.DATA_ERROR) {
+      notify(ErrorMessage.NO_CONNECTION);
+    }
+
+    if (response.status === HttpCode.NOT_FOUND) {
+      notify(ErrorMessage.NO_CONNECTION);
+    }
+
     throw err;
   };
 
