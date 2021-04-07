@@ -1,4 +1,6 @@
 import {CityInfo, CommentSettings} from '../const';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const getCityFilteredPlaces = (offers) => {
   const cities = Object.keys(CityInfo);
@@ -38,3 +40,5 @@ export const getCurrentCityComments = (comments) => {
     return currentComments.sort(sortCommentsByTime).slice(0, CommentSettings.COMMENTS_PER_PAGE);
   }
 };
+
+export const notify = (message) => toast(message);

@@ -6,11 +6,19 @@ import Map from '../map/map';
 import NoPlaces from '../no-places/no-places';
 import {getCurrentCityOffersSelector} from '../../store/offers-data/selectors';
 import {MapSize} from '../../const';
+import Spinner from '../loading/loading';
 
 const PlaceCardList = () => {
+  const {isOffersLoaded} = useSelector((state) => state.DATA);
   const [activeCardId, setActiveCardId] = useState(null);
   const {location: currentCity} = useSelector((state) => state.PAGE);
   const currentCityOffers = useSelector((state) => getCurrentCityOffersSelector(state));
+
+  if (!isOffersLoaded) {
+    return (
+      <Spinner />
+    );
+  }
 
   const countString = currentCityOffers === 1 ? `place` : `places`;
 

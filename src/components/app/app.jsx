@@ -7,34 +7,38 @@ import PropertyPage from '../property-page/property-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import {RoutePath} from '../../const';
 import PrivateRoute from '../private-route/private-route';
+import {ToastContainer} from 'react-toastify';
 
 const App = () => {
   return (
-    <Switch>
-      <Route path={RoutePath.LOGIN_PAGE} exact>
-        <LoginPage />
-      </Route>
-      <Route path={RoutePath.MAIN_PAGE} exact>
-        <MainPage />
-      </Route>
-      <Route path ={RoutePath.FAVORITES_PAGE} exact>
-        <PrivateRoute component={() => <FavoritesPage />} noAuth={() => <Redirect to={RoutePath.LOGIN_PAGE}/>}/>
-      </Route>
-      <Route path={RoutePath.OFFER_PAGE} exact
-        render={(routeProps) => {
-          const propertyId = routeProps.match.params.id;
+    <React.Fragment>
+      <Switch>
+        <Route path={RoutePath.LOGIN_PAGE} exact>
+          <LoginPage />
+        </Route>
+        <Route path={RoutePath.MAIN_PAGE} exact>
+          <MainPage />
+        </Route>
+        <Route path={RoutePath.FAVORITES_PAGE} exact>
+          <PrivateRoute component={() => <FavoritesPage />} noAuth={() => <Redirect to={RoutePath.LOGIN_PAGE}/>}/>
+        </Route>
+        <Route path={RoutePath.OFFER_PAGE} exact
+          render={(routeProps) => {
+            const propertyId = routeProps.match.params.id;
 
-          return (
-            <PropertyPage
-              propertyId={propertyId}
-            />
-          );
-        }}
-      />
-      <Route>
-        <NotFoundPage />
-      </Route>
-    </Switch>
+            return (
+              <PropertyPage
+                propertyId={propertyId}
+              />
+            );
+          }}
+        />
+        <Route>
+          <NotFoundPage />
+        </Route>
+      </Switch>
+      <ToastContainer />
+    </React.Fragment>
   );
 };
 
