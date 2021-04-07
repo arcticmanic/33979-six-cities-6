@@ -3,50 +3,30 @@
 exports[`Should render PlaceCardList correctly 1`] = `
 <div>
   <div
-    style="position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);"
+    class="cities__places-container cities__places-container--empty container"
   >
-    <div
-      aria-busy="true"
-      class=""
+    <section
+      class="cities__no-places"
     >
-      <svg
-        aria-label="audio-loading"
-        height="100"
-        stroke="#4481c3"
-        viewBox="0 0 38 38"
-        width="100"
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        class="cities__status-wrapper tabs__content"
       >
-        <g
-          fill="none"
-          fill-rule="evenodd"
+        <b
+          class="cities__status"
         >
-          <g
-            stroke-width="2"
-            transform="translate(1 1)"
-          >
-            <circle
-              cx="18"
-              cy="18"
-              r="18"
-              stroke-opacity=".5"
-            />
-            <path
-              d="M36 18c0-9.94-8.06-18-18-18"
-            >
-              <animatetransform
-                attributeName="transform"
-                dur="1s"
-                from="0 18 18"
-                repeatCount="indefinite"
-                to="360 18 18"
-                type="rotate"
-              />
-            </path>
-          </g>
-        </g>
-      </svg>
-    </div>
+          No places to stay available
+        </b>
+        <p
+          class="cities__status-description"
+        >
+          We could not find any property available at the moment in 
+          Amsterdam
+        </p>
+      </div>
+    </section>
+    <div
+      class="cities__right-section"
+    />
   </div>
 </div>
 `;
